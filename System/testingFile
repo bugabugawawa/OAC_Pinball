@@ -1,0 +1,7 @@
+.data
+.include "../Funcoes/prints"
+.include "../Imagens/background.data"
+
+.text
+printbitmap(background, fim)
+fim:
