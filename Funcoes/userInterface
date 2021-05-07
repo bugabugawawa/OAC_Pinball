@@ -1,7 +1,10 @@
-# Colocar as funcoes relacionadas a prints aqui
-.macro printbitmap( %x %y %imagem %enderecoDestino) # %pontoNaTela (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
+# Colocar as funcoes relacionadas a UI
+.macro alterScore( %scorePlace %number %Ncasas ) # altera o score recebendo tres IMM
+	alterandoScore:
+	li a4 3
 	la a0 %imagem
 	li a1 0xFF000000			# endereco destino dentro da bitmap
+	addi a1 a1 %scorePlace
 	li t0 320
 	mul t0 t0 %y
 	add a1 a1 %x
@@ -25,5 +28,8 @@
 			addi a1 a1 320 		# desceu uma linha
 			addi a2 a2 -1		# a2--
 			j for_linhas
+	addi a4 a4 -1
+	bnez alterandoScore
+	
 .end_macro
 

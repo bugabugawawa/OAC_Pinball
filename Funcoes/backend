@@ -1,0 +1,8 @@
+# Colocar as funcoes relacionadas a calculos e backend
+.macro num2img( %num %potencia ) # recebe um numero em reg e sua potencia de 10 em imm e.g. 100, e devolve no a0 a imagem correspondente
+	li a0 %potencia
+	div a0 %num a0
+	
+	
+	
+.end_macro

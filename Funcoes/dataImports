@@ -1,0 +1,5 @@
+# Includes de Imagens
+
+# Eqv's
+.eqv playerOneScore 0x0000146C6
+.eqv playerTwoScore 0x0001104E
