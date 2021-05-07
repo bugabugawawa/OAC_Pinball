@@ -1,5 +1,7 @@
 # Colocar as funcoes relacionadas a prints aqui
-.macro printbitmap( %x %y %imagem %enderecoDestino) # %pontoNaTela (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
+
+# este tipo de print que deve ser utilizado para imagens pequenas e impares
+.macro printbitmap( %x %y %imagem ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
 	la a0 %imagem
 	li a1 0xFF000000			# endereco destino dentro da bitmap
 	li t0 320
@@ -10,7 +12,7 @@
 	lw a3 0(a0) 				# largura
 	addi a0 a0 8				# vetor de bytes origem 	
 	for_linhas:	
-		blez a2 %enderecoDestino	# enquanto a2 > 0 print
+		blez a2 fim	# enquanto a2 > 0 print
 		mv t0 a1			# endereco do inicio linha atual
 		mv t1 a3			# t1 = largura
 		for_colunas:	
@@ -25,5 +27,35 @@
 			addi a1 a1 320 		# desceu uma linha
 			addi a2 a2 -1		# a2--
 			j for_linhas
+	fim:
 .end_macro
 
+# este tipo de print que deve ser utilizado para printar imagens quadradas multiplas de 4, 4x mais eficiencia
+.macro printbitmapEficiente( %x %y %imagem ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
+	la a0 %imagem
+	li a1 0xFF000000			# endereco destino dentro da bitmap
+	li t0 320
+	mul t0 t0 %y
+	add a1 a1 %x
+	add a1 a1 t0
+	lw a2 4(a0) 				# altura
+	lw a3 0(a0) 				# largura
+	addi a0 a0 8				# vetor de bytes origem 	
+	for_linhas:	
+		blez a2 fim	# enquanto a2 > 0 print
+		mv t0 a1			# endereco do inicio linha atual
+		mv t1 a3			# t1 = largura
+		for_colunas:	
+			blez t1 fim_da_largura # enquanto t1 > 0
+			lw t2 0(a0)		# le uma word do vetor
+			sw t2 0(t0)		# Salva no display a word lida do vetor 
+			addi a0 a0 4		# a0 += 4
+			addi t0 t0 4		# t0 += 4
+			addi t1 t1 -4		# t1 -=1
+			j for_colunas
+		fim_da_largura:
+			addi a1 a1 320 		# desceu uma linha
+			addi a2 a2 -1		# a2--
+			j for_linhas
+	fim:
+.end_macro
