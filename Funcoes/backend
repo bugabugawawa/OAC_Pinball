@@ -4,43 +4,43 @@
 	div a1 %num a1
 	
 	# confere um por um para achar qual numero correto
-	lw a0 zeru
+	la a0 zerow
 	beqz a1 fim
 
-	lw a0 um
+	la a0 um
 	li a2 1
 	beq a1 a2 fim
 	
-	lw a0 dois
+	la a0 dois
 	li a2 2
 	beq a1 a2 fim
 	
-	lw a0 tres
+	la a0 tres
 	li a2 3
 	beq a1 a2 fim
 	
-	lw a0 quatro
+	la a0 quatro
 	li a2 4
 	beq a1 a2 fim
 	
-	lw a0 cinco
+	la a0 cinco
 	li a2 5
 	beq a1 a2 fim
 	
-	lw a0 seis
+	la a0 seis
 	li a2 6
 	beq a1 a2 fim
 	
-	lw a0 sete
+	la a0 sete
 	li a2 7
 	beq a1 a2 fim
 	
-	lw a0 oito
+	la a0 oito
 	li a2 8
 	beq a1 a2 fim
 	
 	# se nao foi os de cima´eh nove
-	lw a0 nove
+	la a0 nove
 	fim:
 	ret
 .end_macro

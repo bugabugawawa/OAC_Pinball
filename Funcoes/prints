@@ -3,7 +3,7 @@
 # este tipo de print que deve ser utilizado para imagens pequenas e impares
 .macro printbitmap( %x %y %imagem ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
 	la a0 %imagem
-	li a1 0xFF000000			# endereco destino dentro da bitmap
+	li a1 0xFF100000			# endereco destino dentro da bitmap
 	li t0 320
 	mul t0 t0 %y
 	add a1 a1 %x
