@@ -2,7 +2,7 @@
 .macro alterScore( %scorePlace %number %Ncasas ) # altera o score recebendo tres IMM
 	alterandoScore:
 	li a4 3
-	la a0 %imagem
+	la a0 %number
 	li a1 0xFF000000			# endereco destino dentro da bitmap
 	addi a1 a1 %scorePlace
 	li t0 320
