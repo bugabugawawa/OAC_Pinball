@@ -1,26 +1,35 @@
-.data
-.eqv RAIO 10
 .include "./Imagens/background.data"
 .include "./Imagens/Ball.data"
-obstaculosPosicao: .word 0xFF014B97, -12
-obstaculosRaio: .word  32, -1
-# imports
 .include "./Funcoes/prints"
 .include "./Funcoes/Fisica/colisaoTeste.s"
 .data
+.eqv RAIO 10
+
+obstaculosPosicao: .word 0xFF014B97, -1
+obstaculosRaio: .word  32, -1
+# imports
+
+
 movemos: .string "Movemos e Novo y e esse pai : "
 .macro move(%vy, %vx, %y, %x)
 fcvt.w.s t0, %vy
+printFloatln(%vy)
 fcvt.w.s t1, %vx
+printStringln(movemos)
+
 add %y, t0, %y
 add %x, t1, %x
+printint(%y)
+println()
+println()
+println()
 .end_macro
 
 .text
 Inicio: 
 	#colisao x parede = 5 e 283 
-	li s1 120
-	li s0 380
+	li s1 100
+	li s0 100
 	printbitmap(zero zero background vamola )
 	vamola:
 	li a0, 4
@@ -33,12 +42,11 @@ Inicio:
 	li t2, 320
 	mul t1, s0, t2
 	add s8, t1, s8
-	faddi(fs0 -5)
+	faddi(fs0 5)
 	faddi(fs1 0)
-Fim:
 	
 	
-	
+Fim:	
 	li s9 0
 	li t0 1
 	checkColisao( s8, obstaculosPosicao,obstaculosRaio, fs1, fs0, RAIO, s9 )
