@@ -1,5 +1,17 @@
 # Includes de Imagens
+.data
+.include "../Imagens/background.data"
+.include "../Imagens/Numbers/zerow.data"
+.include "../Imagens/Numbers/um.data"
+.include "../Imagens/Numbers/dois.data"
+.include "../Imagens/Numbers/tres.data"
+.include "../Imagens/Numbers/quatro.data"
+.include "../Imagens/Numbers/cinco.data"
+.include "../Imagens/Numbers/seis.data"
+.include "../Imagens/Numbers/sete.data"
+.include "../Imagens/Numbers/oito.data"
+.include "../Imagens/Numbers/nove.data"
 
 # Eqv's
-.eqv playerOneScore 0x0000146C6
-.eqv playerTwoScore 0x0001104E
+.eqv playerOneScore 0xFF001050
+.eqv playerTwoScore 0xFF01104E
