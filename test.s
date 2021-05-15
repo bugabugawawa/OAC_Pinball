@@ -2,7 +2,7 @@
 .eqv RAIO 10
 .include "./Imagens/background.data"
 .include "./Imagens/Ball.data"
-obstaculosPosicao: .word 0xFF014B97, -12
+obstaculosPosicao: .word 0xFF014B97, -1
 obstaculosRaio: .word  32, -1
 # imports
 .include "./Funcoes/prints"
@@ -21,7 +21,7 @@ Inicio:
 	#colisao x parede = 5 e 283 
 	li s1 120
 	li s0 380
-	printbitmap(zero zero background vamola )
+	printbitmapEficiente(zero zero background )
 	vamola:
 	li a0, 4
 	li a1, 3
@@ -47,7 +47,7 @@ Fim:
 	mv s9, a0
 	#beq s9, t0, colidiu
 	move(fs0, fs1 s0 s1)
-	printbitmap(s1 s0 Ball continua )
+	printbitmapEficiente(s1 s0 Ball )
 	continua:
 	
 	
