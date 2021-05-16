@@ -2,6 +2,13 @@
 .eqv BITMAP 0xFF000000
 .eqv LEN 320
 .eqv HEIGHT 480
+movemos: .string "Movemos e Novo y e esse pai : "
+.macro move(%vy, %vx, %y, %x)
+fcvt.w.s t0, %vy
+fcvt.w.s t1, %vx
+add %y, t0, %y
+add %x, t1, %x
+.end_macro
 
 
 newline: .string "\n"  

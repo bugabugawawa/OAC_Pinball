@@ -1,4 +1,5 @@
 # imports
+.data
 .include "./Funcoes/prints"
 .include "./Funcoes/userInterface"
 
@@ -6,11 +7,11 @@
 .eqv RAIO 10
 .include "./Imagens/background.data"
 .include "./Imagens/Ball.data"
-<<<<<<< HEAD
+
 obstaculosPosicao: .word 0xFF014B97, -12
 obstaculosRaio: .word  32, -1
 # imports
-.include "./Funcoes/prints"
+
 .include "./Funcoes/Fisica/colisaoTeste.s"
 .data
 movemos: .string "Movemos e Novo y e esse pai : "
@@ -75,7 +76,7 @@ fcvt.w.s t0, fs1
 printint(t0)
  li a7 10
  ecall
-=======
+
 
 .text
 Inicio:
@@ -92,4 +93,4 @@ Inicio:
 	#addi s0 s0 1
 	#printbitmap(s1 s0 Ball)
 	#j Fim
->>>>>>> b82c4db3f47e6fc943896e44623d9ba6c041e093
+
