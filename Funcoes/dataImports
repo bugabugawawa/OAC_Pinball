@@ -11,7 +11,25 @@
 .include "../Imagens/Numbers/sete.data"
 .include "../Imagens/Numbers/oito.data"
 .include "../Imagens/Numbers/nove.data"
+.include "../Imagens/Menu/selected1.data" 
+.include  "../Imagens/Menu/selected2.data" 
+.include  "../Imagens/Menu/blackSquare.data" 
+.include  "../Imagens/Menu/neonButtonStart.data" 
+.include  "../Imagens/Menu/neonButtonRankings.data" 
+.include  "../Imagens/Menu/neonButtonExit.data" 
+.include  "../Imagens/Menu/menuGif1.data" 
+.include  "../Imagens/Menu/menuGif2.data" 
+.include  "../Imagens/Menu/menuGif3.data" 
+.include  "../Imagens/Menu/menuGif4.data" 
+.include  "../Imagens/Menu/menuGif5.data" 
+.include  "../Imagens/Menu/menuGif6.data" 
+.include  "../Imagens/Menu/menuGif7.data" 
+.include  "../Imagens/Menu/menuGif8.data" 
+.include  "../Imagens/Menu/menuGif9.data" 
+#.include  "../Imagens/Menu/selected5.data"
+
+
 
 # Eqv's
-.eqv playerOneScore 0xFF001050
+.eqv playerOneScore 0xFF001040
 .eqv playerTwoScore 0xFF01104E

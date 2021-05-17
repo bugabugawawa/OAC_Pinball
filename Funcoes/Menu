@@ -1,0 +1,67 @@
+.macro startMenu()
+	printbitmapEficiente( zero zero menuGif1 )
+	li t0 44
+	li t1 96
+	printbitmapEficiente( t0 t1 menuGif9 )
+	li t0 56
+	li t1 120
+	printbitmapEficiente( t0 t1 selected1 )
+	li t0 72
+	li t1 108
+	printbitmapEficiente( t0 t1 neonButtonStart )
+	li t0 56
+	li t1 220
+	printbitmapEficiente( t0 t1 selected1 )
+	li t0 72
+	li t1 208
+	printbitmapEficiente( t0 t1 neonButtonRankings )
+	li t0 56
+	li t1 320
+	printbitmapEficiente( t0 t1 selected1 )
+	li t0 72
+	li t1 308
+	printbitmapEficiente( t0 t1 neonButtonExit )
+	li s1 56
+	li s2 120
+.end_macro
+
+.macro drawMenu()
+	loop:
+	addi s0 s0 1
+	printGif( zero zero menuGif1 8 s0 )
+	printGif( s1 s2 selected1 2 s0 )
+	getInput()
+	j loop
+.end_macro
+
+
+.macro getInput()
+	li a1,0xFF200000	# carrega o endereço de controle do KDMMIO
+	lw a0,0(a1)			# Le bit de Controle Teclado
+	andi a0,a0,0x0001		# mascara o bit menos significativo
+   	beq a0,zero,fim   	   	# Se não há tecla pressionada então vai para FIM
+  	lw a2,4(a1)  			# le o valor da tecla tecla
+	jal return
+	return: addi ra ra 20
+	li a0 119
+	beq a2 a0 subir
+	li a0 115
+	beq a2 a0 descer
+	fim:
+.end_macro
+
+.macro upSelected( %regDestino )
+	li a1 -100
+	li a2 120
+	beq %regDestino a2 return
+	add %regDestino %regDestino a1
+	return: ret
+.end_macro
+
+.macro downSelected( %regDestino )
+	li a0 100
+	li a2 320
+	beq %regDestino a2 return
+	add %regDestino %regDestino a0
+	return:	ret
+.end_macro

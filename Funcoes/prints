@@ -3,7 +3,7 @@
 # este tipo de print que deve ser utilizado para imagens pequenas e impares
 .macro printbitmap( %x %y %imagem ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
 	la a0 %imagem
-	li a1 0xFF100000			# endereco destino dentro da bitmap
+	li a1 0xFF000000			# endereco destino dentro da bitmap
 	li t0 320
 	mul t0 t0 %y
 	add a1 a1 %x
@@ -34,10 +34,10 @@
 .macro printbitmapEficiente( %x %y %imagem ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
 	la a0 %imagem
 	li a1 0xFF000000			# endereco destino dentro da bitmap
-	li t0 320
-	mul t0 t0 %y
-	add a1 a1 %x
-	add a1 a1 t0
+	li a4 320
+	mul a4 a4 %y
+	add a4 a4 %x
+	add a1 a1 a4
 	lw a2 4(a0) 				# altura
 	lw a3 0(a0) 				# largura
 	addi a0 a0 8				# vetor de bytes origem 	
@@ -49,6 +49,191 @@
 			blez t1 fim_da_largura # enquanto t1 > 0
 			lw t2 0(a0)		# le uma word do vetor
 			sw t2 0(t0)		# Salva no display a word lida do vetor 
+			addi a0 a0 4		# a0 += 4
+			addi t0 t0 4		# t0 += 4
+			addi t1 t1 -4		# t1 -=1
+			j for_colunas
+		fim_da_largura:
+			addi a1 a1 320 		# desceu uma linha
+			addi a2 a2 -1		# a2--
+			j for_linhas
+	fim:
+.end_macro
+
+# este tipo de print que deve ser utilizado para printar imagens quadradas multiplas de 4, 4x mais eficiencia
+.macro printbitmapEficienteF1( %x %y %imagem ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
+	la a0 %imagem
+	li a1 0xFF100000			# endereco destino dentro da bitmap
+	li a4 320
+	mul a4 a4 %y
+	add a4 a4 %x
+	add a1 a1 a4
+	lw a2 4(a0) 				# altura
+	lw a3 0(a0) 				# largura
+	addi a0 a0 8				# vetor de bytes origem 	
+	for_linhas:	
+		blez a2 fim	# enquanto a2 > 0 print
+		mv t0 a1			# endereco do inicio linha atual
+		mv t1 a3			# t1 = largura
+		for_colunas:	
+			blez t1 fim_da_largura # enquanto t1 > 0
+			lw t2 0(a0)		# le uma word do vetor
+			sw t2 0(t0)		# Salva no display a word lida do vetor 
+			addi a0 a0 4		# a0 += 4
+			addi t0 t0 4		# t0 += 4
+			addi t1 t1 -4		# t1 -=1
+			j for_colunas
+		fim_da_largura:
+			addi a1 a1 320 		# desceu uma linha
+			addi a2 a2 -1		# a2--
+			j for_linhas
+	fim:
+.end_macro
+
+
+# este tipo de print que deve ser utilizado para printar imagens quadradas multiplas de 4, 4x mais eficiencia
+.macro printbitmapEficiente( %x %y ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
+	li a1 0xFF000000			# endereco destino dentro da bitmap
+	li a4 320
+	mul a4 a4 %y
+	add a4 a4 %x
+	add a1 a1 a4
+	lw a2 4(a0) 				# altura
+	lw a3 0(a0) 				# largura
+	addi a0 a0 8				# vetor de bytes origem 	
+	for_linhas:	
+		blez a2 fim	# enquanto a2 > 0 print
+		mv t0 a1			# endereco do inicio linha atual
+		mv t1 a3			# t1 = largura
+		for_colunas:	
+			blez t1 fim_da_largura # enquanto t1 > 0
+			lw t2 0(a0)		# le uma word do vetor
+			sw t2 0(t0)		# Salva no display a word lida do vetor 
+			addi a0 a0 4		# a0 += 4
+			addi t0 t0 4		# t0 += 4
+			addi t1 t1 -4		# t1 -=1
+			j for_colunas
+		fim_da_largura:
+			addi a1 a1 320 		# desceu uma linha
+			addi a2 a2 -1		# a2--
+			j for_linhas
+	fim:
+.end_macro
+
+# este tipo de print que deve ser utilizado para printar imagens quadradas multiplas de 4, 4x mais eficiencia
+.macro printGif( %x %y %gif %numFrames ) # passar numFrames+1
+	li a4 %numFrames
+	la a5 %gif
+	mv a0 a5
+	lw a2 4(a0) 				# altura
+	lw a3 0(a0) 				# largura
+	mv a6 a2
+	mv a7 a3
+	li t3 320
+	mul t3 t3 %y
+	add t3 t3 %x
+	mul t4 a6 a7
+	addi t4 t4 8	
+	
+	start:
+	addi a4 a4 -1
+	li a1 0xFF000000			# endereco destino dentro da bitmap
+	add a1 a1 t3
+	mv a2 a6
+	addi a0 a0 8				# vetor de bytes origem 	
+	for_linhas:	
+		blez a2 fim	# enquanto a2 > 0 print
+		mv t0 a1			# endereco do inicio linha atual
+		mv t1 a3			# t1 = largura
+		for_colunas:	
+			blez t1 fim_da_largura # enquanto t1 > 0
+			lw t2 0(a0)		# le uma word do vetor
+			sw t2 0(t0)		# Salva no display a word lida do vetor 
+			addi a0 a0 4		# a0 += 4
+			addi t0 t0 4		# t0 += 4
+			addi t1 t1 -4		# t1 -=1
+			j for_colunas
+		fim_da_largura:
+			addi a1 a1 320 		# desceu uma linha
+			addi a2 a2 -1		# a2--
+			j for_linhas
+	fim:
+	
+	add a5 a5 t4
+	mv a0 a5
+	
+	bnez a4 start
+.end_macro
+
+# este tipo de print que deve ser utilizado para printar imagens quadradas multiplas de 4, 4x mais eficiencia
+.macro printGif( %x %y %gif %numFrames %time ) # passar numFrames+1
+	la a0 %gif
+	lw a2 4(a0) 				# altura
+	lw a3 0(a0) 				# largura
+	mul t0 a2 a3
+	addi t0 t0 8
+	li t2 %numFrames
+	rem t1 %time t2
+	mul t0 t1 t0	
+	add a0 a0 t0
+	
+	li t3 320
+	mul t3 t3 %y
+	add t3 t3 %x
+	
+	li a1 0xFF000000			# endereco destino dentro da bitmap
+	add a1 a1 t3
+	addi a0 a0 8				# vetor de bytes origem 	
+	for_linhas:	
+		blez a2 fim	# enquanto a2 > 0 print
+		mv t0 a1			# endereco do inicio linha atual
+		mv t1 a3			# t1 = largura
+		for_colunas:	
+			blez t1 fim_da_largura # enquanto t1 > 0
+			lw t2 0(a0)		# le uma word do vetor
+			sw t2 0(t0)		# Salva no display a word lida do vetor 
+			addi a0 a0 4		# a0 += 4
+			addi t0 t0 4		# t0 += 4
+			addi t1 t1 -4		# t1 -=1
+			j for_colunas
+		fim_da_largura:
+			addi a1 a1 320 		# desceu uma linha
+			addi a2 a2 -1		# a2--
+			j for_linhas
+	fim:
+.end_macro
+
+# este tipo de print que deve ser utilizado para printar imagens quadradas multiplas de 4, 4x mais eficiencia
+.macro printGifMenu( %x %y %gif %numFrames %time ) # passar numFrames+1
+	la a0 %gif
+	lw a2 4(a0) 				# altura
+	lw a3 0(a0) 				# largura
+	mul t0 a2 a3
+	addi t0 t0 8
+	li t2 %numFrames
+	rem t1 %time t2
+	mul t0 t1 t0	
+	add a0 a0 t0
+	
+	li t3 320
+	mul t3 t3 %y
+	add t3 t3 %x
+	
+	li a1 0xFF100000			# endereco destino dentro da bitmap
+	li a4 0x100000			# endereco destino dentro da bitmap
+	add a1 a1 t3
+	addi a0 a0 8				# vetor de bytes origem 	
+	for_linhas:	
+		blez a2 fim	# enquanto a2 > 0 print
+		mv t0 a1			# endereco do inicio linha atual
+		mv t1 a3			# t1 = largura
+		for_colunas:	
+			blez t1 fim_da_largura # enquanto t1 > 0
+			lw t2 0(a0)		# le uma word do vetor
+			sw t2 0(t0)		# Salva no display a word lida do vetor 
+			add t4 a4 t0
+			li t2 199
+			sw t2 0(t4)		# Salva no display a word lida do vetor 
 			addi a0 a0 4		# a0 += 4
 			addi t0 t0 4		# t0 += 4
 			addi t1 t1 -4		# t1 -=1
