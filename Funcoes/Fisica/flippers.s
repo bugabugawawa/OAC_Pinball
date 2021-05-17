@@ -60,11 +60,14 @@ ble s0 t0 bateumano
 
 j fimnaobateu
 bateumano:
-	
+	faddi(fs3 %forca)
+	faddi(fs0 1)
+	fmul.s ft11 fs11 fs11 #ft11 = cos^2
+	fmul.s ft ft10 fs10 fs10 #ft10 = sen^2
+	fdiv.s ft11 ft11 ft10   #ft11 = (cos^2)/sen^2
+	fsub,s ft11 fs0 ft11  #ft11 = 1- (cos^2)/sen^2
 
-
-
-	ble s0 s8 bateuforte # se o centro da bola ta no circulo do flipper, bate forte
+	#ble s0 s8 bateuforte # se o centro da bola ta no circulo do flipper, bate forte
 	
 	
 
