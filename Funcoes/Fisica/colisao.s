@@ -43,6 +43,61 @@ addi sp, sp , 4
 
 .end_macro
 
+.macro gravidade(%vy, %y , %denominador, %numerador )
+addi sp, sp,-100
+sw t0, 0(sp)
+sw t1, 4(sp)
+sw t2, 8(sp)
+fsw ft0, 12(sp)
+fsw ft1, 16(sp)
+fsw ft2, 20(sp)
+faddi(ft0, %denominador)
+faddi(ft1, %numerador)
+fdiv.s ft0, ft0,ft1
+li t0, 240
+ble %y, t0, gNeg
+j gPos
+gNeg: 
+fsub.s %vy, %vy, ft0
+j end
+gPos:
+fadd.s %vy, %vy, ft0
+j end
+end:
+lw t0, 0(sp)
+lw t1, 4(sp)
+lw t2, 8(sp)
+flw ft0, 12(sp)
+flw ft1, 16(sp)
+flw ft2, 20(sp)
+addi sp, sp,100
+
+.end_macro
+
+
+.macro perdaEnergia(%v, %denominador, %numerador)
+addi sp, sp,-100
+sw t0, 0(sp)
+sw t1, 4(sp)
+sw t2, 8(sp)
+fsw ft0, 12(sp)
+fsw ft1, 16(sp)
+fsw ft2, 20(sp)
+faddi(ft0, %denominador)
+faddi(ft1, %numerador)
+fdiv.s ft0, ft0,ft1
+fmul.s %v, %v, ft0
+end:
+lw t0, 0(sp)
+lw t1, 4(sp)
+lw t2, 8(sp)
+flw ft0, 12(sp)
+flw ft1, 16(sp)
+flw ft2, 20(sp)
+addi sp, sp,100
+
+.end_macro
+
 .macro printStringln(%string)
 addi sp, sp , -4
 sw a0, 0(sp)

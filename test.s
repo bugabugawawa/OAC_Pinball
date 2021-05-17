@@ -34,18 +34,18 @@ Inicio:
 	li t2, 320
 	mul t1, s0, t2
 	add s8, t1, s8
-	faddi(fs0 -1)
-	faddi(fs1 4)
+	faddi(fs0 8)
+	faddi(fs1 -3)
 Fim:
 	
 	
 	
 	li s9 0
 	li t0 1
-	colidirDiagonal(114, 11,1,103 , s0, s1, fs0, fs1)
+	colidirDiagonal(114, 11,0,103 , s0, s1, fs0, fs1)
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
-	colidirDiagonal(99,304 ,1 ,208 , s0, s1, fs0, fs1)
+	colidirDiagonal(99,304 ,0 ,208 , s0, s1, fs0, fs1)
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
 	colidirDiagonal(480,116 ,390 ,16 , s0, s1, fs0, fs1)
@@ -70,6 +70,9 @@ Fim:
 	mv s9, a0
 	#beq s9, t0, colidiu
 	move(fs0, fs1 s0 s1)
+	gravidade(fs0, s0, 1, 10)
+	perdaEnergia(fs0, 990, 1000)
+	perdaEnergia(fs1, 990, 1000)
 	#li s11 4
 	#rem s11 s1, s11
 	#sub s11 s1 s11
