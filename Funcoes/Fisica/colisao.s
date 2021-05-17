@@ -8,6 +8,19 @@ fcvt.w.s t0, %vy
 fcvt.w.s t1, %vx
 add %y, t0, %y
 add %x, t1, %x
+li t0, HEIGHT
+li t1, LEN
+blt %y, zero, corrigirYneg
+bgt %y, t0, corrigirYgrande
+j testx
+corrigirYneg:
+li %y,0
+j testx
+corrigirYgrande:
+li %y 465 #height - diametro, pra garantir n dar merda na colisao
+j testx
+testx:
+
 .end_macro
 
 
@@ -38,6 +51,7 @@ li a7, 4
 ecall
 lw a0, 0(sp)
 addi sp, sp , 4
+println()
 
 .end_macro
 
@@ -58,8 +72,9 @@ fmv.s fa0, %fp
 li a7, 2
 ecall
 println()
-addi sp, sp , 4
+
 flw fa0, 0(sp)
+addi sp, sp , 4
 .end_macro
 .macro printint(%i)
 
@@ -83,9 +98,7 @@ println()
 #retorna em fa1 a velocidade x
 pegamodaStack: .string "Pegamo s0 da stack, ele ta aqui embaixo: "
 botamonaStack: .string "Botamo s0 na stack, ele ta aqui embaixo: "
-.macro checkColisao( %posicao,%obstaculosPosicao,%obstaculosRaio, %velocidadeX, %velocidadeY, %raioBola, %testeParada)	
-fmv.s fs0, %velocidadeY #vx = ft0	vy = ft1
-fmv.s fs1, %velocidadeX
+.macro checkColisao( %posicao,%obstaculosPosicao,%obstaculosRaio, %velocidadeY, %velocidadeX, %raioBola, %testeParada)	
 addi sp, sp,-100
 sw s0,0(sp)
 sw s1,4(sp)
@@ -104,6 +117,11 @@ fsw fs4, 64(sp)
 fsw fs5, 68(sp)
 fsw fs6, 72(sp)
 fsw fs7, 76(sp)
+fsw fs8, 80(sp)
+fsw fs9 84(sp)
+fsw fs10, 88(sp)
+fsw fs11, 92(sp)
+
 
 mv s0,%posicao #bola posicao = s0
 li t6, BITMAP
@@ -111,10 +129,13 @@ sub s0,s0,t6
 li t5, LEN
 rem s1, s0, t5 # s1 = x
 div s0, s0, t5 # s0 = y
+li s2, %raioBola #s2 = raio bola
+add s1, s2,s1
+add s0, s0,s2
 
 
 li s11, 0 # int i = 0
-li s2, %raioBola #s2 = raio bola
+
 # s0 = bola y , s1 = bola x, s2 =raio bola, 
 # s3 = obstaculo y, s4 = obstaculo x, s5 = r obstaculo
 for1:	
@@ -167,7 +188,7 @@ for1:
 	printFloatln(fs0)
 	printFloatln(fs1)
 	
-	printStringln(colidimo)
+	#printStringln(colidimo)
 	acharSenCos(s3, s4, s0,  s1)
 	fmv.s fs3, fa0
 	
@@ -249,7 +270,11 @@ flw fs4, 64(sp)
 flw fs5, 68(sp)
 flw fs6, 72(sp)
 flw fs7, 76(sp)
-addi sp, sp, 100
+flw fs8, 80(sp)
+flw fs9 84(sp)
+flw fs10, 88(sp)
+flw fs11, 92(sp)
+
 j retorno
 retorno:
 .end_macro
@@ -262,7 +287,7 @@ fcvt.s.w ft0, %yb
 fcvt.s.w ft1, %xb
 fcvt.s.w ft2, %ya
 fcvt.s.w ft3, %xa
-# acha a tg do angulo
+# acha a hipopotenusa
 #a0 = y, a1 = x
 fsub.s ft0, ft0,ft2
 
@@ -290,7 +315,7 @@ vetory: .string "Esse e o vetor y^^^^^\n"
 vetorx: .string "Esse e o vetor x^^^^^\n"
 rotacao: .string "Rotacionando pai\n"
 .macro rotacaoXVetor(%vy, %vx, %sen,  %cos)
-printStringln(rotacao)
+#printStringln(rotacao)
 fmv.s ft0, %vy
 fmv.s ft1, %vx
 fmv.s ft2, %sen
@@ -303,11 +328,11 @@ fadd.s %vy, ft4, ft5 #YCOS+XSEN
 fmul.s ft4, ft3,ft1 #xcos
 fmul.s ft5, ft2,ft0 #ysen
 fsub.s %vx, ft4, ft5 #xcos-ysen
-printFloatln(%vy)
-printStringln(vetory)
+#printFloatln(%vy)
+#printStringln(vetory)
 
-printFloatln(%vx)
-printStringln(vetorx)
+#printFloatln(%vx)
+#printStringln(vetorx)
 
 .end_macro
 

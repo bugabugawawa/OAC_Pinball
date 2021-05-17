@@ -8,26 +8,21 @@
 .include "./Imagens/background.data"
 .include "./Imagens/Ball.data"
 
-obstaculosPosicao: .word 0xFF014B97, -12
-obstaculosRaio: .word  32, -1
+obstaculosPosicao: .word 0xFF014BA1, 0xFF009C72, -1
+
+obstaculosRaio: .word  32, 45, -1
 # imports
 
-.include "./Funcoes/Fisica/colisaoTeste.s"
+.include "./Funcoes/Fisica/colisaoDiagonais.s"
 .data
-movemos: .string "Movemos e Novo y e esse pai : "
-.macro move(%vy, %vx, %y, %x)
-fcvt.w.s t0, %vy
-fcvt.w.s t1, %vx
-add %y, t0, %y
-add %x, t1, %x
-.end_macro
+
 
 .text
 Inicio: 
 	#colisao x parede = 5 e 283 
-	li s1 120
-	li s0 380
-	printbitmap(zero zero background vamola )
+	li s1 150
+	li s0 70
+	printbitmapEficiente(zero zero background )
 	vamola:
 	li a0, 4
 	li a1, 3
@@ -39,21 +34,46 @@ Inicio:
 	li t2, 320
 	mul t1, s0, t2
 	add s8, t1, s8
-	faddi(fs0 -5)
-	faddi(fs1 0)
+	faddi(fs0 -1)
+	faddi(fs1 4)
 Fim:
 	
 	
 	
 	li s9 0
 	li t0 1
-	checkColisao( s8, obstaculosPosicao,obstaculosRaio, fs1, fs0, RAIO, s9 )
+	colidirDiagonal(114, 11,1,103 , s0, s1, fs0, fs1)
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
+	colidirDiagonal(99,304 ,1 ,208 , s0, s1, fs0, fs1)
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
+	colidirDiagonal(480,116 ,390 ,16 , s0, s1, fs0, fs1)
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
+	colidirDiagonal(480, 210 ,395 ,306 , s0, s1, fs0, fs1)
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
+	
+	
+	checkColisaoParedes( s0, s1, fs0, fs1 )
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
+	checkColisao( s8, obstaculosPosicao,obstaculosRaio, fs0, fs1, RAIO, s9 )
+	batemoPai:
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
+	j continua2
+	continua2:
+	
+	
 	mv s9, a0
 	#beq s9, t0, colidiu
 	move(fs0, fs1 s0 s1)
-	printbitmap(s1 s0 Ball continua )
+	#li s11 4
+	#rem s11 s1, s11
+	#sub s11 s1 s11
+	printbitmap(s1 s0 Ball )
 	continua:
 	
 	
@@ -78,19 +98,5 @@ printint(t0)
  ecall
 
 
-.text
-Inicio:
-	li s1 100
-	li s0 80
-	
-	printbitmap( zero zero background )
-	Fim:
-	printbitmapEficiente( zero zero background )
-	
-	alterScore
 
-	#checar colisao
-	#addi s0 s0 1
-	#printbitmap(s1 s0 Ball)
-	#j Fim
 
