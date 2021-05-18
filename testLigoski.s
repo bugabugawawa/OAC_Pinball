@@ -7,9 +7,12 @@
 
 .text
 Inicio:
-	
-	startMenu()
-	drawMenu()
+
+	#printbitmapEficiente(zero zero background)
+	#printbitmapEficiente(zero zero tres)
+	li s6 40
+	printbitmapClean( s6 s6 40 40 )
+	#drawMenu()
 	
 	li a7 10
 	ecall

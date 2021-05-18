@@ -28,8 +28,15 @@
 .include  "../Imagens/Menu/menuGif9.data" 
 #.include  "../Imagens/Menu/selected5.data"
 
+# strings
+newline: .string "\n"
 
 
 # Eqv's
 .eqv playerOneScore 0xFF001040
 .eqv playerTwoScore 0xFF01104E
+
+#.eqv FSE 0xFF000056
+#.eqv FSD 0xFF0000AE
+
+

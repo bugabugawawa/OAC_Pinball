@@ -90,6 +90,49 @@
 	fim:
 .end_macro
 
+# este tipo de print que deve ser utilizado para printar imagens quadradas multiplas de 4, 4x mais eficiencia
+.macro printbitmapClean( %x %y %width %height ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
+	la a0 background
+	addi a0 a0 8
+	mv s10 a0
+	li a4 320 # mul 4
+	# offset inicial
+	mul a6 %y a4
+	add a6 a6 %x
+	add a0 a0 a6
+	# offset para somar ao a0
+	li t0 320
+	li t1 %width
+	sub a5 t0 t1
+	
+	li a1 0xFF000000			# endereco destino dentro da bitmap
+	li a4 320
+	mul a4 a4 %y
+	add a4 a4 %x
+	add a1 a1 a4
+	li a2 %height
+	li a3 %width
+	for_linhas:	
+		blez a2 fim	# enquanto a2 > 0 print
+		mv t0 a1			# endereco do inicio linha atual
+		mv t1 a3			# t1 = largura
+		for_colunas:														
+			blez t1 fim_da_largura # enquanto t1 > 0
+			lw t2 0(a0)		# le uma word do vetor
+			sw t2 0(t0)		# Salva no display a word lida do vetor 
+			addi a0 a0 4		# a0 += 4
+			addi t0 t0 4		# t0 += 4
+			addi t1 t1 -4		# t1 -=1
+			j for_colunas
+		fim_da_largura:
+			printint(a0)
+			addi a1 a1 320 		# desceu uma linha
+			add a0 a0 a5
+			addi a2 a2 -1		# a2--
+			j for_linhas
+	fim:
+.end_macro
+
 
 # este tipo de print que deve ser utilizado para printar imagens quadradas multiplas de 4, 4x mais eficiencia
 .macro printbitmapEficiente( %x %y ) # (a2=altura a3 = largura a0 = origem da imagem a1 = onde comeca imagem no bitmap [em 0x])
