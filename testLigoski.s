@@ -1,11 +1,15 @@
 # imports
 .include "./Funcoes/dataImports"
 .include "./Funcoes/prints"
-.include "./Funcoes/userInterface"
-.include "./Funcoes/backend"
+.include "./Funcoes/Menu"
+.include "./Funcoes/specialEffects"
+#.include "./Funcoes/userInterface"
+#.include "./Funcoes/backend"
 
 .text
 Inicio:
+<<<<<<< HEAD
+=======
 	li s1 100
 	li s0 80
 	
@@ -26,13 +30,17 @@ Inicio:
 	#alterScore( zerow playerOneScore )
 	
 #	alterScore
+>>>>>>> master
 
-	#checar colisao
-	#addi s0 s0 1
-	#printbitmap(s1 s0 Ball)
-	#j Fim
+	#printbitmapEficiente(zero zero background)
+	#printbitmapEficiente(zero zero tres)
+	#li s6 40
+	#printbitmapClean( s6 s6 40 40 )
+	#drawMenu()
+	explodePlanet()
+	
 	li a7 10
 	ecall
 
-choose:
-	num2img( a6 100 )
+subir: upSelected(s2)
+descer: downSelected(s2)
