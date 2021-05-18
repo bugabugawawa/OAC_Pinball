@@ -44,8 +44,8 @@ add t1 t0 t1
 mv t2 zero 
 sw t2 0(t1)
 
-#explodePlanet()
-#printbitmapEficiente(zero zero background )
+explodePlanet()
+printbitmapEficiente(zero zero background )
 ### #clean planeta
 j efeitos
 j efeitos

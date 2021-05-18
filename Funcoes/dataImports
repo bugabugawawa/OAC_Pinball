@@ -1,6 +1,6 @@
 # Includes de Imagens
 .data
-
+.include "../Imagens/background.data"
 .include "../Imagens/Numbers/zerow.data"
 .include "../Imagens/Numbers/um.data"
 .include "../Imagens/Numbers/dois.data"

@@ -2,12 +2,11 @@
 .data
 .include "./Funcoes/prints"
 .include "./Funcoes/userInterface"
-#.include "./Funcoes/dataImports"
+.include "./Funcoes/dataImports"
 .data
 .eqv RAIO 10
-newline: .string "\n"
+
 .include "./Imagens/Ball.data"
-.include "./Imagens/background.data"
 
 obstaculosPosicao: .word 0xFF014BA1, 0xFF009C72, -1
 
