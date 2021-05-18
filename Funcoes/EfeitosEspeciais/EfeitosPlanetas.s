@@ -1,6 +1,10 @@
 .data
 explosion: .string "planeta explodiu"
 efeitosEspeciais: .string "Ativaremos os efeitos agr\n"
+#RETORNA EM FS0 A VELOCIDADE Y E EM FS1 A VELOCIDADE X
+
+#colidiu planeta e a bool q mostra se colidiu
+#planeta e a posicao do vetor dos planetas, ambas vem do colisao.s
 .macro efeitosPlanetas(%colidiuplaneta %planeta %vy %vx %vetorPlanetas %vetorPlanetasVidas %ultimoplayer)
 addi sp, sp,-100
 sw s0,0(sp)
@@ -67,10 +71,17 @@ li t5 2
 beq %ultimoplayer  t5 player2score
 j fim
 player1score:
-#alterScore(playerOneScore)
+addi s3 s3 50
+#alterScoreP1()
+#printbitmapEficiente( zero zero background)
+
+	
 j fim
 player2score:
-#alterScore(playerTwoScore)
+addi s4 s4 50
+#alterScoreP2()
+
+#printbitmapEficiente( zero zero background)
 j fim
 
 aumentarvelocidade:
@@ -159,4 +170,15 @@ end:
 	addi t4 t4 1
 	addi t5 t5 -1
 	bnez t5 loop
+.end_macro
+
+.macro colidirPlanetas(  %bolaPosicao %obstaculosPosicao  %obstaculosRaio %obstaculosVidas %ultimoPlayer %vy %vx  )
+
+	checkColisao( s8, %obstaculosPosicao,%obstaculosRaio, fs0, fs1, RAIO, s9 )
+	batemoPai:
+	fmv.s %vy, fa0
+	fmv.s %vx, fa1
+	efeitosPlanetas(a0 a1 fs0 fs1 %obstaculosPosicao %obstaculosVidas s9 )
+	fmv.s %vy, fa0
+	fmv.s %vx, fa1
 .end_macro

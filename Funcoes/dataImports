@@ -39,6 +39,9 @@
 .include  "../Imagens/game/FDI2.data" 
 .include  "../Imagens/game/FDI3.data" 
 .include  "../Funcoes/userinterface"
+#----------------------------------------------
+.include "./backend"
+.include "./userInterface"
 # strings
 newline: .string "\n"
 API: .asciz "./api/inputs.txt"
@@ -48,7 +51,7 @@ buf: .space 64
 
 # Eqv's
 .eqv playerOneScore 0xFF001040
-.eqv playerTwoScore 0xFF023874
+.eqv playerTwoScore 0xFF01104E
 
 .eqv FEI 0xFF01FE54
 .eqv FDI 0xFF01FEB0

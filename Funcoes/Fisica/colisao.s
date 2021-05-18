@@ -155,6 +155,8 @@ println()
 #velocidadeX e Y tu me entrega em regs
 #retorna em fa0 a velocidade y
 #retorna em fa1 a velocidade x
+#retorna em fa0 se colidiu
+#retorna em fa1 a posicao do vetor q colidiu
 pegamodaStack: .string "Pegamo s0 da stack, ele ta aqui embaixo: "
 botamonaStack: .string "Botamo s0 na stack, ele ta aqui embaixo: "
 .macro checkColisao( %posicao,%obstaculosPosicao,%obstaculosRaio, %velocidadeY, %velocidadeX, %raioBola, %testeParada)	

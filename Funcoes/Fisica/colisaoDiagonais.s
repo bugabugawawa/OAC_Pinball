@@ -2,6 +2,8 @@
 .include "./colisaoParedes.s"
 diagonamos: .string "Batemo na diagas "
 sencos: .string "AQUI TA SENO COSENO NESSA PORRA^^^^^ \n"
+
+#RETORNA EM FS0 A VELOCIDADE Y E EM FS1 A VELOCIDADE X
 .macro colidirDiagonal(%y1, %x1,%y0,%x0, %ybola, %xbola, %vybola, %vxbola)
 addi sp, sp,-100
 sw s0,0(sp)

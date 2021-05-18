@@ -1,7 +1,7 @@
 # imports
 .data
 .include "./Funcoes/prints"
-.include "./Funcoes/userInterface"
+
 .include "./Funcoes/dataImports"
 .data
 .eqv RAIO 10
@@ -28,7 +28,8 @@ Inicio:
 	vamola:
 	li a0, 4
 	li a1, 3
-	
+	li s4 0
+	li s3 0
 	
 	#y=275 x=100
 	li s8, 0xFF000000
@@ -42,7 +43,7 @@ Fim:
 	
 	
 	
-	li s9 0
+	li s9 1
 	li t0 1
 	colidirDiagonal(114, 11,0,103 , s0, s1, fs0, fs1)
 	fmv.s fs0, fa0
@@ -61,13 +62,7 @@ Fim:
 	checkColisaoParedes( s0, s1, fs0, fs1 )
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
-	checkColisao( s8, obstaculosPosicao,obstaculosRaio, fs0, fs1, RAIO, s9 )
-	batemoPai:
-	fmv.s fs0, fa0
-	fmv.s fs1, fa1
-	efeitosPlanetas(a0 a1 fs0 fs1 obstaculosPosicao obstaculosVidas s9 )
-	fmv.s fs0, fa0
-	fmv.s fs1, fa1
+	colidirPlanetas( s8, obstaculosPosicao obstaculosRaio obstaculosVidas s9 fs0 fs1)
 	j continua2
 	continua2:
 	flipperBate(470, 180,450,224, s0, s1, fs0, fs1, 15)

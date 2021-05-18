@@ -1,3 +1,4 @@
+.data
 
 # Colocar as funcoes relacionadas a UI
 .macro alterScoreP1( ) # altera o score recebendo tres IMM
@@ -5,10 +6,12 @@
 	li t5 10
 	li t6 3
 	li a1 playerOneScore			# endereco destino dentro da bitmap
+	printStringln(diagonamos)
 	start:
 	div t4 t4 t5
 	addi t6 t6 -1
 	jal  N2IP1
+	N2IP1: num2img( s3 t4 )
 
 	addi a1 a1 16
 	lw a2 4(a0) 				# altura
@@ -47,7 +50,7 @@
 	div t4 t4 t5
 	addi t6 t6 -1
 	jal  N2IP2
-
+	N2IP2: num2img( s4 t4 )
 	addi a1 a1 16
 	lw a2 4(a0) 				# altura
 	lw a3 0(a0) 				# largura
