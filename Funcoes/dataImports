@@ -41,7 +41,10 @@
 
 # strings
 newline: .string "\n"
+API: .asciz "./api/inputs.txt"
 
+# buffers
+buf: .space 64
 
 # Eqv's
 .eqv playerOneScore 0xFF001040

@@ -1,0 +1,129 @@
+<html lang="en"><head>
+
+    <meta charset="UTF-8">
+    
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+  
+  <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+  
+  
+    <title>CodePen - Real-time typing (javascript)</title>
+    
+    
+    
+    
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-size: 1.5em;
+  }
+  
+  .container {
+    max-width: 468px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  main {
+    border: dotted 1px red;
+  }
+  
+  main label {
+    display: block;
+    margin: 0 0 5px 0;
+  }
+  
+  main input {
+    width: 100%;
+    font-size: 1em;
+    font-family: serif;
+  }
+  
+  header {
+    border: dotted 1px green;
+  }
+  
+  main, header {
+    padding: 15px;
+    margin: 0 0 15px 0;
+  }
+  </style>
+  
+    <script>
+    window.console = window.console || function(t) {};
+  </script>
+  
+    
+    
+    <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+  
+  
+  </head>
+  
+  <body translate="no">
+    <div class="container">
+    <header>
+      <div id="js-text-block" data-text="">Empty</div>
+    </header>
+    <main>
+      <label for="js-text-value">IP ADDRESS</label>
+      <input id="js-ip-value" type="text" value="">
+      <label for="js-text-value">Your text goes here</label>
+      <input id="js-text-value" type="text" value="">
+    </main>
+  </div>
+      <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+  
+    
+        <script id="rendered-js">
+  (() => {
+    
+    const jsTextBlock = document.getElementById('js-text-block'),
+    jsTextInput = document.getElementById('js-text-value');
+  
+    //if (jsTextInput.value.length === 0) {
+    //  jsTextBlock.innerHTML = 'Empty';
+    //}
+  
+    jsTextInput.addEventListener('input', () => {
+      //jsTextBlock.setAttribute('data-text', jsTextInput.value);
+      //jsTextBlock.innerHTML = jsTextBlock.getAttribute('data-text');
+      passData(event, jsTextBlock.getAttribute('data-text'))
+      //if (jsTextInput.value.length === 0) {
+      //  jsTextBlock.innerHTML = 'Empty';
+      //}
+      return false;
+    }, false);
+  
+  })();
+
+    function passData( arg)
+    {
+      //event.preventDefault();
+      //event.stopPropagation()
+      const ip = document.getElementById('js-ip-value');
+      const test = document.getElementById('js-text-value');
+      fetch("http://" + ip.value + ":8080/input/" + test, {method: "POST"});
+      return false;
+    }
+  
+  //# sourceURL=pen.js
+      </script>
+  
+    
+  
+  
+  
+  
+   
+  </body></html>
