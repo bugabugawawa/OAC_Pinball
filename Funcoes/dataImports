@@ -52,7 +52,7 @@ buf: .space 64
 
 # Eqv's
 .eqv playerOneScore 0xFF001040
-.eqv playerTwoScore 0xFF01104E
+.eqv playerTwoScore 0xFF0235F4
 
 .eqv FEI 0xFF01FE54
 .eqv FDI 0xFF01FEB0

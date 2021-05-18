@@ -79,6 +79,7 @@ Fim:
 	checkColisaoParedes( s0, s1, fs0, fs1 )
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
+	li s9 1
 	colidirPlanetas( s8, obstaculosPosicao obstaculosRaio obstaculosVidas s9 fs0 fs1)
 	mv s9, a0
 	j continua2
@@ -105,16 +106,7 @@ Fim:
 	
 Fim2:
 	j Fim
-colidiu:
-printFloatln(fs0)
-fcvt.w.s t0, fs0
-printint(t0)
-printFloatln(fs1)
-fcvt.w.s t0, fs1
-printint(t0)
- li a7 10
- ecall
 
-
-
+N2IP1: num2img( s3 t4 )
+N2IP2: num2img( s4 t4 )
 

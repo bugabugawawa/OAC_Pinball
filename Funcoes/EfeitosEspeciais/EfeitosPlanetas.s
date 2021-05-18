@@ -10,8 +10,7 @@ addi sp, sp,-100
 sw s0,0(sp)
 sw s1,4(sp)
 sw s2,8(sp)
-sw s3,12(sp)
-sw s4,16(sp)
+
 sw s5,20(sp)
 sw s6, 24(sp)
 sw s7, 28(sp)
@@ -50,6 +49,8 @@ sw t2 0(t1)
 
 explodePlanet()
 printbitmapEficiente(zero zero background )
+alterScoreP1()
+alterScoreP2()
 ### #clean planeta
 j efeitos
 j efeitos
@@ -59,7 +60,7 @@ j efeitos
 efeitos:
 li t1 0
 li t2 4
-li t3 8
+#li t3 8
 beq t0 t1 aumentarscore
 beq t0 t2 aumentarvelocidade
 #beq t0 t3 
@@ -71,17 +72,19 @@ li t5 2
 beq %ultimoplayer  t5 player2score
 j fim
 player1score:
-addi s3 s3 50
-#alterScoreP1()
-#printbitmapEficiente( zero zero background)
+addi s4 s4 50
+printbitmapEficiente( zero zero background)
+alterScoreP2()
+
 
 	
 j fim
 player2score:
-addi s4 s4 50
-#alterScoreP2()
+addi s3 s3 50
+printbitmapEficiente( zero zero background)
+alterScoreP1()
 
-#printbitmapEficiente( zero zero background)
+
 j fim
 
 aumentarvelocidade:
@@ -105,8 +108,7 @@ fim:
 lw s0,0(sp)
 lw s1,4(sp)
 lw s2,8(sp)
-lw s3,12(sp)
-lw s4,16(sp)
+
 lw s5,20(sp)
 lw s6, 24(sp)
 lw s7, 28(sp)
@@ -136,8 +138,7 @@ fmul.s fa1 %vx ft0
 lw s0,0(sp)
 lw s1,4(sp)
 lw s2,8(sp)
-lw s3,12(sp)
-lw s4,16(sp)
+
 lw s5,20(sp)
 lw s6, 24(sp)
 lw s7, 28(sp)
