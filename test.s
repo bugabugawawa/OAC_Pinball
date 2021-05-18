@@ -11,6 +11,7 @@
 obstaculosPosicao: .word 0xFF014BA1, 0xFF009C72, -1
 
 obstaculosRaio: .word  32, 45, -1
+obstaculosVidas: .word  3, 3, 3 ,3,-1
 # imports
 
 .include "./Funcoes/Fisica/flippers.s"
