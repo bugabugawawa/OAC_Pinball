@@ -13,7 +13,7 @@ obstaculosPosicao: .word 0xFF014BA1, 0xFF009C72, -1
 obstaculosRaio: .word  32, 45, -1
 # imports
 
-.include "./Funcoes/Fisica/colisaoDiagonais.s"
+.include "./Funcoes/Fisica/flippers.s"
 .data
 
 
@@ -34,8 +34,8 @@ Inicio:
 	li t2, 320
 	mul t1, s0, t2
 	add s8, t1, s8
-	faddi(fs0 8)
-	faddi(fs1 -3)
+	faddi(fs0 7)
+	faddi(fs1 1)
 Fim:
 	
 	
@@ -65,14 +65,15 @@ Fim:
 	fmv.s fs1, fa1
 	j continua2
 	continua2:
-	
-	
+	flipperBate(470, 180,450,224, s0, s1, fs0, fs1, 15)
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
 	mv s9, a0
 	#beq s9, t0, colidiu
 	move(fs0, fs1 s0 s1)
-	gravidade(fs0, s0, 1, 10)
-	perdaEnergia(fs0, 990, 1000)
-	perdaEnergia(fs1, 990, 1000)
+	gravidade(fs0, s0, 1, 15)
+	perdaEnergia(fs0, 995, 1000)
+	perdaEnergia(fs1, 995, 1000)
 	#li s11 4
 	#rem s11 s1, s11
 	#sub s11 s1 s11

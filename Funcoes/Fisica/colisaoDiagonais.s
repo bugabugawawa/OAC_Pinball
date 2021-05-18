@@ -42,9 +42,9 @@ fadd.s ft8, ft6,ft7 # ft8 = hip^2
 fsqrt.s ft8,ft8 # ft8 = hipotenusa
 fdiv.s fs11, ft5, ft8 #fs11 = cos
 fdiv.s fs10, ft4, ft8 #fs10 = sen
-printFloatln(fs11)
-printFloatln(fs10)
-printStringln(sencos)
+#printFloatln(fs11)
+#printFloatln(fs10)
+#printStringln(sencos)
 fdiv.s fs4, ft4, ft5 #tangente do angulo da funcao afim
 # y = fs4x + b
 # b = y- fs4x
@@ -69,7 +69,7 @@ ble t0, t1 colidiupai
 j fimnaocolidiu
 
 colidiupai:
-printStringln(diagonamos)
+#printStringln(diagonamos)
 fmv.s fs0, %vybola #vx = fs0	vy = fs1
 fmv.s fs1, %vxbola
 fmul.s fs7 fs0 fs0

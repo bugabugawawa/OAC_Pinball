@@ -86,6 +86,9 @@ fsw ft2, 20(sp)
 faddi(ft0, %denominador)
 faddi(ft1, %numerador)
 fdiv.s ft0, ft0,ft1
+fmv.s fa0 ft0
+li a7 2 
+ecall
 fmul.s %v, %v, ft0
 end:
 lw t0, 0(sp)
@@ -95,7 +98,7 @@ flw ft0, 12(sp)
 flw ft1, 16(sp)
 flw ft2, 20(sp)
 addi sp, sp,100
-
+println()
 .end_macro
 
 .macro printStringln(%string)
@@ -132,10 +135,13 @@ flw fa0, 0(sp)
 addi sp, sp , 4
 .end_macro
 .macro printint(%i)
-
+addi sp, sp , -4
+sw a0, 0(sp)
 li a7, 1
 mv a0, %i
 ecall
+lw a0, 0(sp)
+addi sp, sp , 4
 println()
 .end_macro
 
