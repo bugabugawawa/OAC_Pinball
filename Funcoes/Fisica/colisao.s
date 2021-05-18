@@ -210,6 +210,8 @@ for1:
 	lw s5, 0(t2) #s4 = obstaculo raio
 	li t4, -1
 	beq s3, t4, fimSemColisao # se a posicao e ffffffff chegamos ao fim do vetor
+	li t4, 0
+	beq s3, t0 for1
 	sub s3, s3, t6 #s3 - bitmap
 	li t6, BITMAP
 	rem s4, ,s3, t5  # obstaculo x
@@ -275,9 +277,9 @@ for1:
 	fmv.s  fa0 fs0 #y = fa0
 	fmv.s  fa1 fs1	#vx = fa1
 	li a0, 1
-	printFloatln(%velocidadeY)
-	printFloatln(%velocidadeX)
-	
+	li a1, s11
+	#printFloatln(%velocidadeY)
+	#printFloatln(%velocidadeX)
 	#li a7, 10
 	#ecall
 	j fim
