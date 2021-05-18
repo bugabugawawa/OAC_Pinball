@@ -16,3 +16,5 @@ Inicio:
 
 subir: upSelected(s2)
 descer: downSelected(s2)
+
+

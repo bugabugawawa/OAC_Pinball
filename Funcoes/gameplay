@@ -1,0 +1,27 @@
+# coloca o x / y de onde o flipper tem que ser printado e escolhe qual flipper
+# só coloca o 1o frame do flipper ex: FDI1
+# ATENCAO TEM NECESSARIAMENTE QUE ESTAR EM ORDEM NO ARQUIVO DE IMPORT
+# me chama na hora se tiver duvidas
+.macro useFlipper( %X %Y %flipper )
+	li t4 0
+	li t5 3
+	loop:
+	printGif( %X %Y %flipper 3 t4 )
+	printbitmapClean( %X %Y 60 72 )
+	addi t4 t4 1
+	addi t5 t5 -1
+	bnez t5 loop
+	
+	################################################################################################
+	# Scotton colocar sua lógica aqui
+	################################################################################################	
+	
+	li t5 3
+	addi t4 t4 -1
+	loop1:
+	printGif( %X %Y %flipper 3 t4 )
+	printbitmapClean( %X %Y 60 72 )
+	addi t4 t4 -1
+	addi t5 t5 -1
+	bnez t5 loop1
+.end_macro

@@ -2,6 +2,7 @@
 .include "./Funcoes/dataImports"
 .include "./Funcoes/prints"
 .include "./Funcoes/Menu"
+.include "./Funcoes/specialEffects"
 #.include "./Funcoes/userInterface"
 #.include "./Funcoes/backend"
 
@@ -10,9 +11,10 @@ Inicio:
 
 	#printbitmapEficiente(zero zero background)
 	#printbitmapEficiente(zero zero tres)
-	li s6 40
-	printbitmapClean( s6 s6 40 40 )
+	#li s6 40
+	#printbitmapClean( s6 s6 40 40 )
 	#drawMenu()
+	explodePlanet()
 	
 	li a7 10
 	ecall

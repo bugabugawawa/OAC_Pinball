@@ -1,0 +1,10 @@
+# ver com scotton como selecionar o planeta aqui
+.macro explodePlanet()
+	li t4 0
+	li t5 9
+	loop:
+	printGif( zero zero explosion1 9 t4 )
+	addi t4 t4 1
+	addi t5 t5 -1
+	bnez t5 loop
+.end_macro

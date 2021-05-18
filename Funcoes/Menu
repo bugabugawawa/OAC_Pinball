@@ -30,12 +30,12 @@
 	addi s0 s0 1
 	printGif( zero zero menuGif1 8 s0 )
 	printGif( s1 s2 selected1 2 s0 )
-	getInput()
+	getInputMenu()
 	j loop
 .end_macro
 
 
-.macro getInput()
+.macro getInputMenu()
 	li a1,0xFF200000	# carrega o endereço de controle do KDMMIO
 	lw a0,0(a1)			# Le bit de Controle Teclado
 	andi a0,a0,0x0001		# mascara o bit menos significativo

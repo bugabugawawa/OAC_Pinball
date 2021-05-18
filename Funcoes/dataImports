@@ -26,7 +26,18 @@
 .include  "../Imagens/Menu/menuGif7.data" 
 .include  "../Imagens/Menu/menuGif8.data" 
 .include  "../Imagens/Menu/menuGif9.data" 
-#.include  "../Imagens/Menu/selected5.data"
+.include  "../Imagens/gifs/explosion/explosion1.data" 
+.include  "../Imagens/gifs/explosion/explosion2.data" 
+.include  "../Imagens/gifs/explosion/explosion3.data" 
+.include  "../Imagens/gifs/explosion/explosion4.data" 
+.include  "../Imagens/gifs/explosion/explosion5.data" 
+.include  "../Imagens/gifs/explosion/explosion6.data" 
+.include  "../Imagens/gifs/explosion/explosion7.data" 
+.include  "../Imagens/gifs/explosion/explosion8.data" 
+.include  "../Imagens/gifs/explosion/explosion9.data" 
+.include  "../Imagens/game/FDI1.data" 
+.include  "../Imagens/game/FDI2.data" 
+.include  "../Imagens/game/FDI3.data" 
 
 # strings
 newline: .string "\n"
@@ -35,6 +46,11 @@ newline: .string "\n"
 # Eqv's
 .eqv playerOneScore 0xFF001040
 .eqv playerTwoScore 0xFF01104E
+
+.eqv FEI 0xFF01FE54
+.eqv FDI 0xFF01FEB0
+.eqv FES 0xFF000058
+.eqv FDS 0xFF0000B0
 
 #.eqv FSE 0xFF000056
 #.eqv FSD 0xFF0000AE
