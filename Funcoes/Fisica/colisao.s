@@ -145,9 +145,7 @@ addi sp, sp , 4
 println()
 .end_macro
 
-#tem um jeito de eu n precisar fazer o check inteiro toda hr
-#mas eu legit so vou codar esse jeito se tiver probs de performance, pq eu n sou masoquista
-#lembre-se, lobster. Nao vamos tentar engulir mais do q cabe na boca, se n a gente n engole. Ent fazemos primeiro q isso serve so pra um player
+
 
 
 #me da a posicao dentro do bitmap em REGISTRADOR ok?
