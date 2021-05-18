@@ -37,14 +37,19 @@ Inicio:
 	li t2, 320
 	mul t1, s0, t2
 	add s8, t1, s8
-	faddi(fs0 5)
+	faddi(fs0 7)
 	faddi(fs1 1)
 Fim:
 	
 	
+	li s8, 0xFF000000
+	add s8, s1, s8
+	li t2, 320
+	mul t1, s0, t2
+	add s8, t1, s8
 	
-	li s9 1
-	li t0 1
+	
+	
 	colidirDiagonal(114, 11,0,103 , s0, s1, fs0, fs1)
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
@@ -57,23 +62,36 @@ Fim:
 	colidirDiagonal(480, 210 ,395 ,306 , s0, s1, fs0, fs1)
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
-	
+	#agr os flippers
+	colidirDiagonal(34, 100 ,14 ,144 , s0, s1, fs0, fs1)
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
+	colidirDiagonal(15, 180 ,34 ,220 , s0, s1, fs0, fs1)
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
+	colidirDiagonal(450, 102 470 ,144 , s0, s1, fs0, fs1)
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
+	colidirDiagonal(470, 180 450 ,224 , s0, s1, fs0, fs1)
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
 	
 	checkColisaoParedes( s0, s1, fs0, fs1 )
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
 	colidirPlanetas( s8, obstaculosPosicao obstaculosRaio obstaculosVidas s9 fs0 fs1)
+	mv s9, a0
 	j continua2
 	continua2:
 	flipperBate(470, 180,450,224, s0, s1, fs0, fs1, 15)
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
-	mv s9, a0
+	mv s9, a1
 	#beq s9, t0, colidiu
 	move(fs0, fs1 s0 s1)
-	gravidade(fs0, s0, 1, 25)
-	perdaEnergia(fs0, 995, 1000)
-	perdaEnergia(fs1, 995, 1000)
+	gravidade(fs0, s0, 1, 20)
+	perdaEnergia(fs0, 990, 1000)
+	perdaEnergia(fs1, 990, 1000)
 	#li s11 4
 	#rem s11 s1, s11
 	#sub s11 s1 s11
@@ -82,11 +100,7 @@ Fim:
 	
 	
 	
-	li s8, 0xFF000000
-	add s8, s1, s8
-	li t2, 320
-	mul t1, s0, t2
-	add s8, t1, s8
+	
 	
 	
 Fim2:

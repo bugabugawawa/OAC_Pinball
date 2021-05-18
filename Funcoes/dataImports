@@ -42,6 +42,7 @@
 #----------------------------------------------
 .include "./backend"
 .include "./userInterface"
+.include "./Fisica/SuperFuncao.asm"
 # strings
 newline: .string "\n"
 API: .asciz "./api/inputs.txt"

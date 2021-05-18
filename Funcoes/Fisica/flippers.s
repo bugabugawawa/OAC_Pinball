@@ -1,6 +1,7 @@
 .data 
 .include "./colisaoDiagonais.s"
 fliperamos: .string "BATEMO NESSE CARALHO DE FLIPPER\n"
+#retorna em a1 qual player bateu no flipper, velocidades sempre no msm retorno
 .macro flipperBate(%y1, %x1,%y0,%x0, %ybola, %xbola, %vybola, %vxbola, %forca)
 addi sp, sp,-100
 sw s0,0(sp)
@@ -101,7 +102,7 @@ bateumano:
 fimcolidiu:
 fmv.s fa0 fs0
 fmv.s fa1 fs1
-
+add a1 a1 zero
 lw s0,0(sp)
 lw s1,4(sp)
 lw s2,8(sp)
@@ -183,10 +184,12 @@ ble %bolay t0 emcima
 j embaixo
 emcima:
 fabs.s %vy, %vy
+li a1 1
 j fim
 embaixo:
 fabs.s %vy, %vy
 fmul.s %vy %vy ft0
+li a1 2
 j fim
 fim:
 
