@@ -2,19 +2,20 @@
 .data
 .include "./Funcoes/prints"
 .include "./Funcoes/userInterface"
-
+.include "./Funcoes/dataImports"
 .data
 .eqv RAIO 10
-.include "./Imagens/background.data"
+
 .include "./Imagens/Ball.data"
 
 obstaculosPosicao: .word 0xFF014BA1, 0xFF009C72, -1
 
 obstaculosRaio: .word  32, 45, -1
-obstaculosVidas: .word  3, 3, 3 ,3,-1
+obstaculosVidas: .word  3, 3, -1
 # imports
 
 .include "./Funcoes/Fisica/flippers.s"
+.include "./Funcoes/EfeitosEspeciais/EfeitosPlanetas.s"
 .data
 
 
@@ -35,7 +36,7 @@ Inicio:
 	li t2, 320
 	mul t1, s0, t2
 	add s8, t1, s8
-	faddi(fs0 7)
+	faddi(fs0 5)
 	faddi(fs1 1)
 Fim:
 	
@@ -64,6 +65,9 @@ Fim:
 	batemoPai:
 	fmv.s fs0, fa0
 	fmv.s fs1, fa1
+	efeitosPlanetas(a0 a1 fs0 fs1 obstaculosPosicao obstaculosVidas s9 )
+	fmv.s fs0, fa0
+	fmv.s fs1, fa1
 	j continua2
 	continua2:
 	flipperBate(470, 180,450,224, s0, s1, fs0, fs1, 15)
@@ -72,7 +76,7 @@ Fim:
 	mv s9, a0
 	#beq s9, t0, colidiu
 	move(fs0, fs1 s0 s1)
-	gravidade(fs0, s0, 1, 15)
+	gravidade(fs0, s0, 1, 25)
 	perdaEnergia(fs0, 995, 1000)
 	perdaEnergia(fs1, 995, 1000)
 	#li s11 4

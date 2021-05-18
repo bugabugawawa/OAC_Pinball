@@ -2,29 +2,9 @@
 .eqv BITMAP 0xFF000000
 .eqv LEN 320
 .eqv HEIGHT 480
-movemos: .string "Movemos e Novo y e esse pai : "
-.macro move(%vy, %vx, %y, %x)
-fcvt.w.s t0, %vy
-fcvt.w.s t1, %vx
-add %y, t0, %y
-add %x, t1, %x
-li t0, HEIGHT
-li t1, LEN
-blt %y, zero, corrigirYneg
-bgt %y, t0, corrigirYgrande
-j testx
-corrigirYneg:
-li %y,0
-j testx
-corrigirYgrande:
-li %y 465 #height - diametro, pra garantir n dar merda na colisao
-j testx
-testx:
-
-.end_macro
 
 
-
+newline: .string "\n"  
 colidimo:  .string "Colidimo pai\n"  
 obsy:  .string "Esse e o obstaculo y^^^^\n"
 obsx:   .string "Esse e o obstaculo x^^^^\n"
@@ -43,64 +23,6 @@ addi sp, sp , 4
 
 .end_macro
 
-.macro gravidade(%vy, %y , %denominador, %numerador )
-addi sp, sp,-100
-sw t0, 0(sp)
-sw t1, 4(sp)
-sw t2, 8(sp)
-fsw ft0, 12(sp)
-fsw ft1, 16(sp)
-fsw ft2, 20(sp)
-faddi(ft0, %denominador)
-faddi(ft1, %numerador)
-fdiv.s ft0, ft0,ft1
-li t0, 240
-ble %y, t0, gNeg
-j gPos
-gNeg: 
-fsub.s %vy, %vy, ft0
-j end
-gPos:
-fadd.s %vy, %vy, ft0
-j end
-end:
-lw t0, 0(sp)
-lw t1, 4(sp)
-lw t2, 8(sp)
-flw ft0, 12(sp)
-flw ft1, 16(sp)
-flw ft2, 20(sp)
-addi sp, sp,100
-
-.end_macro
-
-
-.macro perdaEnergia(%v, %denominador, %numerador)
-addi sp, sp,-100
-sw t0, 0(sp)
-sw t1, 4(sp)
-sw t2, 8(sp)
-fsw ft0, 12(sp)
-fsw ft1, 16(sp)
-fsw ft2, 20(sp)
-faddi(ft0, %denominador)
-faddi(ft1, %numerador)
-fdiv.s ft0, ft0,ft1
-#fmv.s fa0 ft0
-#li a7 2 
-#ecall
-fmul.s %v, %v, ft0
-end:
-lw t0, 0(sp)
-lw t1, 4(sp)
-lw t2, 8(sp)
-flw ft0, 12(sp)
-flw ft1, 16(sp)
-flw ft2, 20(sp)
-addi sp, sp,100
-println()
-.end_macro
-
 .macro printStringln(%string)
 addi sp, sp , -4
 sw a0, 0(sp)
@@ -109,7 +31,6 @@ li a7, 4
 ecall
 lw a0, 0(sp)
 addi sp, sp , 4
-println()
 
 .end_macro
 
@@ -130,22 +51,20 @@ fmv.s fa0, %fp
 li a7, 2
 ecall
 println()
-
-flw fa0, 0(sp)
 addi sp, sp , 4
+flw fa0, 0(sp)
 .end_macro
 .macro printint(%i)
-addi sp, sp , -4
-sw a0, 0(sp)
+
 li a7, 1
 mv a0, %i
 ecall
-lw a0, 0(sp)
-addi sp, sp , 4
 println()
 .end_macro
 
-
+#tem um jeito de eu n precisar fazer o check inteiro toda hr
+#mas eu legit so vou codar esse jeito se tiver probs de performance, pq eu n sou masoquista
+#lembre-se, lobster. Nao vamos tentar engulir mais do q cabe na boca, se n a gente n engole. Ent fazemos primeiro q isso serve so pra um player
 
 
 #me da a posicao dentro do bitmap em REGISTRADOR ok?
@@ -157,7 +76,9 @@ println()
 #retorna em fa1 a velocidade x
 pegamodaStack: .string "Pegamo s0 da stack, ele ta aqui embaixo: "
 botamonaStack: .string "Botamo s0 na stack, ele ta aqui embaixo: "
-.macro checkColisao( %posicao,%obstaculosPosicao,%obstaculosRaio, %velocidadeY, %velocidadeX, %raioBola, %testeParada)	
+.macro checkColisao( %posicao,%obstaculosPosicao,%obstaculosRaio, %velocidadeX, %velocidadeY, %raioBola, %testeParada)	
+fmv.s fs0, %velocidadeY #vx = ft0	vy = ft1
+fmv.s fs1, %velocidadeX
 addi sp, sp,-100
 sw s0,0(sp)
 sw s1,4(sp)
@@ -176,11 +97,6 @@ fsw fs4, 64(sp)
 fsw fs5, 68(sp)
 fsw fs6, 72(sp)
 fsw fs7, 76(sp)
-fsw fs8, 80(sp)
-fsw fs9 84(sp)
-fsw fs10, 88(sp)
-fsw fs11, 92(sp)
-
 
 mv s0,%posicao #bola posicao = s0
 li t6, BITMAP
@@ -188,13 +104,10 @@ sub s0,s0,t6
 li t5, LEN
 rem s1, s0, t5 # s1 = x
 div s0, s0, t5 # s0 = y
-li s2, %raioBola #s2 = raio bola
-add s1, s2,s1
-add s0, s0,s2
 
 
 li s11, 0 # int i = 0
-
+li s2, %raioBola #s2 = raio bola
 # s0 = bola y , s1 = bola x, s2 =raio bola, 
 # s3 = obstaculo y, s4 = obstaculo x, s5 = r obstaculo
 for1:	
@@ -208,8 +121,6 @@ for1:
 	lw s5, 0(t2) #s4 = obstaculo raio
 	li t4, -1
 	beq s3, t4, fimSemColisao # se a posicao e ffffffff chegamos ao fim do vetor
-	li t4, 0
-	beq s3, t4 goNext
 	sub s3, s3, t6 #s3 - bitmap
 	li t6, BITMAP
 	rem s4, ,s3, t5  # obstaculo x
@@ -237,7 +148,6 @@ for1:
 		
 	
 	ble s6 s8 colidir
-	goNext:
 	addi s11,s11 4
 	j for1
 	# s0 = bola y , s1 = bola x, s2 =raio bola, 
@@ -250,7 +160,7 @@ for1:
 	printFloatln(fs0)
 	printFloatln(fs1)
 	
-	#printStringln(colidimo)
+	printStringln(colidimo)
 	acharSenCos(s3, s4, s0,  s1)
 	fmv.s fs3, fa0
 	
@@ -276,9 +186,9 @@ for1:
 	fmv.s  fa0 fs0 #y = fa0
 	fmv.s  fa1 fs1	#vx = fa1
 	li a0, 1
-	mv a1, s11
-	printint(s11)
-	#printFloatln(%velocidadeX)
+	printFloatln(%velocidadeY)
+	printFloatln(%velocidadeX)
+	
 	#li a7, 10
 	#ecall
 	j fim
@@ -292,7 +202,6 @@ fim:
 fmv.s  fa0 fs0 #y = fa0
 fmv.s  fa1 fs1	#vx = fa1
 li a0, 1
-mv a1 s11
 lw s0,0(sp)
 
 lw s1,4(sp)
@@ -333,13 +242,7 @@ flw fs4, 64(sp)
 flw fs5, 68(sp)
 flw fs6, 72(sp)
 flw fs7, 76(sp)
-flw fs8, 80(sp)
-flw fs9 84(sp)
-flw fs10, 88(sp)
-flw fs11, 92(sp)
 addi sp, sp, 100
-
-
 j retorno
 retorno:
 .end_macro
@@ -352,7 +255,7 @@ fcvt.s.w ft0, %yb
 fcvt.s.w ft1, %xb
 fcvt.s.w ft2, %ya
 fcvt.s.w ft3, %xa
-# acha a hipopotenusa
+# acha a tg do angulo
 #a0 = y, a1 = x
 fsub.s ft0, ft0,ft2
 
@@ -380,7 +283,7 @@ vetory: .string "Esse e o vetor y^^^^^\n"
 vetorx: .string "Esse e o vetor x^^^^^\n"
 rotacao: .string "Rotacionando pai\n"
 .macro rotacaoXVetor(%vy, %vx, %sen,  %cos)
-#printStringln(rotacao)
+printStringln(rotacao)
 fmv.s ft0, %vy
 fmv.s ft1, %vx
 fmv.s ft2, %sen
@@ -393,11 +296,11 @@ fadd.s %vy, ft4, ft5 #YCOS+XSEN
 fmul.s ft4, ft3,ft1 #xcos
 fmul.s ft5, ft2,ft0 #ysen
 fsub.s %vx, ft4, ft5 #xcos-ysen
-#printFloatln(%vy)
-#printStringln(vetory)
+printFloatln(%vy)
+printStringln(vetory)
 
-#printFloatln(%vx)
-#printStringln(vetorx)
+printFloatln(%vx)
+printStringln(vetorx)
 
 .end_macro
 

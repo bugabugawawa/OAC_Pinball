@@ -38,15 +38,13 @@
 .include  "../Imagens/game/FDI1.data" 
 .include  "../Imagens/game/FDI2.data" 
 .include  "../Imagens/game/FDI3.data" 
-
+.include  "../Funcoes/userinterface"
 # strings
 newline: .string "\n"
 API: .asciz "./api/inputs.txt"
 
 # buffers
 buf: .space 64
-# laranja verde 'com anel' rosa
-planets: .word 
 
 # Eqv's
 .eqv playerOneScore 0xFF001040
