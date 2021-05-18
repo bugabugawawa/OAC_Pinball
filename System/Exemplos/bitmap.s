@@ -53,5 +53,5 @@ LOOP2: 	beq t1,t2,FIM		# Se for o último endereço então sai do loop
 	j LOOP2			# volta a verificar
 	
 # devolve o controle ao sistema operacional
-FIM:	li a7,10		# syscall de exit
+FIM:	li a7,5		# syscall de exit
 	ecall
