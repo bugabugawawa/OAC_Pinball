@@ -5,7 +5,7 @@ efeitosEspeciais: .string "Ativaremos os efeitos agr\n"
 
 #colidiu planeta e a bool q mostra se colidiu
 #planeta e a posicao do vetor dos planetas, ambas vem do colisao.s
-.macro efeitosPlanetas(%colidiuplaneta %planeta %vy %vx %vetorPlanetas %vetorPlanetasVidas %ultimoplayer)
+.macro efeitosPlanetas(%colidiuplaneta %planeta %vy %vx %vetorPlanetas %vetorPlanetasVidas %ultimoplayer %obstaculosPosicao %obstaculosRaio %obstaculosX %obstaculosY %obstaculosVidas %background)
 addi sp, sp,-100
 sw s0,0(sp)
 sw s1,4(sp)
@@ -30,7 +30,7 @@ fsw fs11, 92(sp)
 
 mv s0 %planeta
 mv t0 %colidiuplaneta
-beq t0 zero fim #se n colidiu fodase
+beq t0 zero fimnada #se n colidiu fodase
 #printStringln(efeitosEspeciais)
 mv t0 %planeta 
 la t1 %vetorPlanetasVidas 
@@ -48,9 +48,11 @@ mv t2 zero
 sw t2 0(t1)
 
 explodePlanet()
-printbitmapEficiente(zero zero background )
-alterScoreP1()
-alterScoreP2()
+printbitmapEficiente( zero zero background ) 
+printarPlanetas(%obstaculosPosicao  %obstaculosRaio %obstaculosX %obstaculosY %obstaculosVidas)
+
+#alterScoreP1()
+#alterScoreP2()
 ### #clean planeta
 j efeitos
 j efeitos
@@ -59,7 +61,7 @@ j efeitos
 
 efeitos:
 li t1 0
-li t2 4
+li t2 12
 li t3 8
 beq t0 t3 aumentarscore
 beq t0 t2 aumentarvelocidade
@@ -76,7 +78,7 @@ addi s4 s4 -50
 ble zero s4 player1dcontinua
 li s4 0
 player1dcontinua:
-printbitmapEficiente( zero zero background)
+#printbitmapEficiente( zero zero %background)
 alterScoreP2()
 j fim
 
@@ -86,7 +88,7 @@ addi s3 s3 -50
 ble zero s3 player2dcontinua
 li s3 0
 player2dcontinua:
-printbitmapEficiente( zero zero background)
+#printbitmapEficiente( zero zero %background)
 alterScoreP1()
 j fim
 
@@ -100,13 +102,13 @@ beq %ultimoplayer  t5 player2score
 j fim
 player1score:
 addi s4 s4 50
-printbitmapEficiente( zero zero background)
+#printbitmapEficiente( zero zero %background)
 alterScoreP2()
 
 j fim
 player2score:
 addi s3 s3 50
-printbitmapEficiente( zero zero background)
+#printbitmapEficiente( zero zero %background)
 alterScoreP1()
 j fim
 
@@ -151,6 +153,8 @@ addi sp, sp, 100
 fmv.s fa0 %vy
 fmv.s fa1 %vx
 
+printarPlanetas(%obstaculosPosicao  %obstaculosRaio %obstaculosX %obstaculosY %obstaculosVidas)
+
 j end
 
 
@@ -178,12 +182,40 @@ flw fs9 84(sp)
 flw fs10, 88(sp)
 flw fs11, 92(sp)
 addi sp, sp, 100
+printarPlanetas(%obstaculosPosicao  %obstaculosRaio %obstaculosX %obstaculosY %obstaculosVidas)
+j end
+
+
+fimnada:
+lw s0,0(sp)
+lw s1,4(sp)
+lw s2,8(sp)
+
+lw s5,20(sp)
+lw s6, 24(sp)
+lw s7, 28(sp)
+flw fs0,48(sp)
+flw fs1, 52(sp)
+flw fs2, 56(sp)
+flw fs3, 60(sp)
+flw fs4, 64(sp)
+flw fs5, 68(sp)
+flw fs6, 72(sp)
+flw fs7, 76(sp)
+flw fs8, 80(sp)
+flw fs9 84(sp)
+flw fs10, 88(sp)
+flw fs11, 92(sp)
+addi sp, sp, 100
+fmv.s fa0 %vy
+fmv.s fa1 %vx
 
 
 
-
+j end
 
 end:
+
 .end_macro
 # ver com scotton como selecionar o planeta aqui
 .macro explodePlanet()
@@ -196,13 +228,13 @@ end:
 	bnez t5 loop
 .end_macro
 
-.macro colidirPlanetas(  %bolaPosicao %obstaculosPosicao  %obstaculosRaio %obstaculosVidas %ultimoPlayer %vy %vx  )
+.macro colidirPlanetas(  %bolaPosicao %obstaculosPosicao  %obstaculosRaio %obstaculosVidas %ultimoPlayer %vy %vx  %obstaculosPosicao  %obstaculosRaio %obstaculosX %obstaculosY %obstaculosVidas %background )
 
 	checkColisao( s8, %obstaculosPosicao,%obstaculosRaio, fs0, fs1, RAIO, s9 )
 	batemoPai:
 	fmv.s %vy, fa0
 	fmv.s %vx, fa1
-	efeitosPlanetas(a0 a1 fs0 fs1 %obstaculosPosicao %obstaculosVidas s9 )
-	fmv.s %vy, fa0
+	efeitosPlanetas(a0 a1 fs0 fs1 %obstaculosPosicao  %obstaculosVidas s9  %obstaculosPosicao  %obstaculosRaio %obstaculosX %obstaculosY %obstaculosVidas %background)
+	fmv.s %vy, fa0 
 	fmv.s %vx, fa1
 .end_macro

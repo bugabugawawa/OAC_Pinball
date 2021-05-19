@@ -21,7 +21,7 @@
 	printGif( s1 s0 %flipper 3 tp)
 	li s0 %YIM
 	li s1 %XIM
-	printbitmapClean(  s1 s0  60 72 )
+	printbitmapClean(  s1 s0  60 72 background)
 	
 	addi tp tp 1
 	addi gp gp -1
@@ -56,7 +56,7 @@
 	printGif( s1 s0 %flipper 3 tp)
 	li s0 %YIM
 	li s1 %XIM
-	printbitmapClean(  s1 s0  60 72 )
+	printbitmapClean(  s1 s0  60 72 background)
 	
 	
 	addi tp tp -1
@@ -79,6 +79,90 @@ li t0 97
 beq t1 t0 flipperBaixoEsq
 li t0 115 
 beq t1 t0 flipperBaixoDir
+li t0 
+
+
+
+
+.end_macro
+
+
+.macro useFlipper2( %Y1 %X1 %Y0 %X0 %flipper %ybola, %xbola, %vybola, %vxbola, %forca, %ultimoPlayer ,%XIM, %YIM)
+	#printStringln(diagonamos)
+	#------------------------------------
+	addi sp sp -100
+	sw s0 4(sp)
+	sw s1 8(sp)
+	
+	
+	
+	li tp 0
+	li t4 0
+	li gp 3
+	loop:
+	li s0 %YIM
+	li s1 %XIM
+	printGif( s1 s0 %flipper 3 tp)
+	li s0 %YIM
+	li s1 %XIM
+	printbitmapClean(  s1 s0  60 72 background1)
+	
+	addi tp tp 1
+	addi gp gp -1
+	bnez gp loop
+	
+	
+	lw s0 4(sp)
+	lw s1 8(sp)
+	addi sp sp 100
+	
+	
+	################################################################################################
+	# Scotton colocar sua lógica aqui
+	flipperBate(%Y1 %X1 %Y0 %X0 %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
+	fmv.s %vybola, fa0
+	fmv.s %vxbola, fa1
+	mv %ultimoPlayer, a1
+	################################################################################################	
+	addi sp sp -100
+	sw a1 12(sp)
+	sw s0 4(sp)
+	sw s1 8(sp)
+	li gp 3
+	addi tp tp -1
+	
+	
+	#printint(s0)
+	
+	loop1:
+	li s0 %YIM
+	li s1 %XIM
+	printGif( s1 s0 %flipper 3 tp)
+	li s0 %YIM
+	li s1 %XIM
+	printbitmapClean(  s1 s0  60 72 background1)
+	
+	
+	addi tp tp -1
+	addi gp gp -1
+	bnez gp loop1
+	
+	lw a1 12(sp)
+	lw s0 4(sp)
+	lw s1 8(sp)
+	addi sp sp 100
+	
+	
+.end_macro
+
+.macro escolheFlipper2( %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
+# a = 97
+# escolhe input
+mv t1 t1 #t1 = input
+li t0 97
+beq t1 t0 flipperBaixoEsq2
+li t0 115 
+beq t1 t0 flipperBaixoDir2
 li t0 
 
 

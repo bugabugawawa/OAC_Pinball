@@ -1,0 +1,90 @@
+.data
+selected1: .string "../Imagens/Menu/selected1.data" 
+selected2: .string  "../Imagens/Menu/selected2.data" 
+neonButtonStart: .string  "../Imagens/Menu/neonButtonStart.data" 
+neonButtonRankings: .string  "../Imagens/Menu/neonButtonRankings.data" 
+neonButtonExit: .string  "../Imagens/Menu/neonButtonExit.data" 
+menuGif1: .string  "../Imagens/Menu/menuGif1.data" 
+menuGif2: .string  "../Imagens/Menu/menuGif2.data" 
+menuGif3: .string  "../Imagens/Menu/menuGif3.data" 
+menuGif4: .string  "../Imagens/Menu/menuGif4.data" 
+menuGif5: .string  "../Imagens/Menu/menuGif5.data" 
+menuGif6: .string  "../Imagens/Menu/menuGif6.data" 
+menuGif7: .string  "../Imagens/Menu/menuGif7.data" 
+menuGif8: .string  "../Imagens/Menu/menuGif8.data" 
+menuGif9: .string  "../Imagens/Menu/menuGif9.data" 
+
+.text
+
+
+li a7 9
+	li a0 2150512
+	ecall
+	mv s5 a0
+	mv s6 a0
+
+	gambiarraMiniAuxiliar( selected1 )
+	gambiarraMiniAuxiliar( selected2 )
+	gambiarraMiniAuxiliar( neonButtonStart )
+	gambiarraMiniAuxiliar( neonButtonRankings )
+	gambiarraMiniAuxiliar( neonButtonExit )
+	gambiarraMiniAuxiliar( menuGif1 )
+	gambiarraMiniAuxiliar( menuGif2 )
+	gambiarraMiniAuxiliar( menuGif3 )
+	gambiarraMiniAuxiliar( menuGif4 )
+	gambiarraMiniAuxiliar( menuGif5 )
+	gambiarraMiniAuxiliar( menuGif6 )
+	gambiarraMiniAuxiliar( menuGif7 )
+	gambiarraMiniAuxiliar( menuGif8 )
+	gambiarraMiniAuxiliar( menuGif9 )
+	
+	mv s5 s6
+	li t0 153600	
+	
+	# selected1
+	mv s0 s5
+	
+	add s5 s5 t0
+	
+	# selected2
+	mv s1 s5
+	
+	add s5 s5 t0
+	
+	# neonButtonStart
+	mv s7 s5
+	
+	add s5 s5 t0
+	
+	# neonButtonRankings
+	mv s3 s5
+	
+	add s5 s5 t0
+	
+	# neonButtonExit
+	mv s4 s5
+	
+	add s5 s5 t0
+	
+	
+	
+
+.macro gambiarraMiniAuxiliar( %file )
+	li a7 1024
+    	la a0 %file
+   	li a1 0
+  	ecall
+
+   	li a7 63
+   	mv a1 s5
+  	li a2 153600
+  	ecall
+  	
+  	li t0 153600
+  	add s5 s5 t0
+  	
+  	li a7 57
+   	li a0 3
+   	ecall
+  	
+.end_macro

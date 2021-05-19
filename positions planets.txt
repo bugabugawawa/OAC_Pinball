@@ -1,0 +1,14 @@
+verdao
+x 228 y 88 raio 52 0xFF006EE4 x 232 y 92 centro x 280 y 140
+
+------------------------
+laranjinha x 20 y 64 raio 24 0xFF006E2C centrox x 48 y 92
+
+------------------------
+
+anel 
+x 92 y 240  raio 32 0xff01547C    x 88 244 centro x 136 y 280
+
+------------------------
+rosinha
+x 236 y 296 raio 48 0xff01AF1C  centro x 284 340

@@ -1,6 +1,6 @@
 # Includes de Imagens
 .data
-.include "../Imagens/background.data"
+
 .include "../Imagens/Numbers/zerow.data"
 .include "../Imagens/Numbers/um.data"
 .include "../Imagens/Numbers/dois.data"
@@ -47,20 +47,36 @@
 .include  "../Imagens/game/FDS1.data" 
 .include  "../Imagens/game/FDS2.data" 
 .include  "../Imagens/game/FDS3.data" 
+.include  "../Imagens/game/planeta_1.data"
+.include  "../Imagens/game/planeta_2.data"
+.include  "../Imagens/game/planeta_3.data"
+.include  "../Imagens/game/planeta_4.data"
+.include "../Imagens/gifs/Explosion3/explosion3-1.data"
+.include "../Imagens/gifs/Explosion3/explosion3-2.data"
+.include "../Imagens/gifs/Explosion3/explosion3-4.data"
+.include "../Imagens/gifs/Explosion3/explosion3-5.data"
+.include "../Imagens/gifs/Explosion3/explosion3-6.data"
+.include "../Imagens/gifs/Explosion3/explosion3-7.data"
+.include "../Imagens/pasta/background.data"
+.include "../Imagens/pasta/background1.data"
 
 
 
 .include "../Imagens/game/Ball.data"
 
-
+.include "./printPlanetas.asm"
 #----------------------------------------------
-.include  "../Funcoes/userinterface"
-.include  "../Funcoes/gameplay"
-.include  "../Funcoes/RWfiles.asm"
+.data
+.include "./Fisica/flippers.s"
+.include "./EfeitosEspeciais/EfeitosPlanetas.s"
+.include "./EfeitosEspeciais/matarbola.asm"
+.include  "./userinterface"
+.include  "./gameplay"
+.include  "./RWfiles.asm"
 .include "./backend"
 .include "./userInterface"
 .include "./Fisica/SuperFuncao.asm"
-
+.include "./Menu"
 .include "./prints"
 # strings
 newline: .string "\n"
@@ -78,8 +94,31 @@ buf: .space 1
 .eqv FES 0xFF000058
 .eqv FDS 0xFF0000B0
 .eqv RAIO 10
-
+.eqv POS_START    0x9638
+.eqv POS_RANKINGS 0x11338
+.eqv POS_SAIR     0x19038
+			#0xFF005014
+obstaculosPosicao: .word 0xFF00B018,0 ,0xff015E88,0xff01AA1C -1
+obstaculosX: .word 228 20 92 236 -1
+obstaculosY: .word 88 64 240 296 -1
+obstaculosRaio: .word  52, 24, 32, 48 -1
+obstaculosVidas: .word  3, 0 3 , 3 , -1
+contagemBolas: .word 3 ,-1
+fimdejogopopup: .string "o jogo acabou. O Resultado foi: quem ganhar ou quem perder, nem quem ganhar nem perder, vai ganhar ou perder. Vai todo mundo perder."
+obstaculosPosicao1: .word 0xFF00AFE4,0 ,0xff015E54,0xff01AA1C -1
+obstaculosX1: .word 176 20 40 236 -1
+obstaculosY1: .word 88 64 240 296 -1
+obstaculosRaio1: .word  52, 24, 32, 48 -1
+obstaculosVidas1: .word  3, 0 3 , 3 , -1
+contagemBolas1: .word 3 ,-1
 #.eqv FSE 0xFF000056
 #.eqv FSD 0xFF0000AE
-
+# Numero de Notas a tocar
+NUM: .word 147
+# lista de nota,duração,nota,duração,nota,duração,...
+NOTAS: 76,789,77,789,71,526,77,789,79,789,83,131,81,131,79,131,76,920,77,789,71,1841,59,131,59,131,60,131,64,131,60,131,76,920,77,789,71,526,77,789,79,789,83,131,81,131,79,131,76,920,77,789,71,1578,64,131,64,394,64,131,64,262,64,131,48,263,50,263,52,263,52,263,53,263,50,526,48,131,47,1972,48,263,48,263,50,263,52,263,48,526,47,263,59,526,59,263,53,1578,48,263,48,263,50,263,52,263,48,263,52,263,53,526,50,263,48,263,50,131,48,131,47,1315,48,263,48,263,50,263,52,263,48,263,47,526,53,263,53,263,53,263,55,263,53,1052,52,1315,53,263,55,263,52,263,53,263,53,263,53,263,55,263,53,263,47,263,47,1578,48,263,50,263,52,263,48,526,53,263,55,263,53,789,47,131,48,131,52,131,48,131,55,394,55,394,53,789,47,131,48,131,50,131,48,131,53,394,53,394,52,263,50,131,48,394,47,131,48,131,52,131,48,131,52,394,53,394,50,131,48,394,47,526,47,263,53,526,52,1052,47,131,48,131,52,131,48,131,55,394,55,394,53,788,47,131,48,131,50,131,48,131,59,394,50,394,52,263,50,131,48,394,47,131,48,131,50,131,48,131,52,394,53,394,50,394,48,131,47,526,47,263,53,263,52,263,52,526
+NOTASSOM: 35, 6000
+TEMPOCONTADO: .word 0
+TEMPOINICIAL: .word 0
+CONTADORDENOTAS: .word 0
 

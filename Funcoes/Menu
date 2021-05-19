@@ -31,7 +31,7 @@
 	printGif( zero zero menuGif1 8 s0 )
 	printGif( s1 s2 selected1 2 s0 )
 	getInputMenu()
-	j loop
+	
 .end_macro
 
 
@@ -47,6 +47,8 @@
 	beq a2 a0 subir
 	li a0 115
 	beq a2 a0 descer
+	li a0 100
+	beq a2 a0 selecionar
 	fim:
 .end_macro
 

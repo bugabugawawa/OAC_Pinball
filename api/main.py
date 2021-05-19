@@ -1,13 +1,13 @@
 import requests
 from pynput import keyboard
 
-url = ''
+url = 'http://'
 urla = '/input/a'
 urlb = '/input/d'
 
 print('passe a url:')
 
-url = input()
+url += input()
 
 print('flipper da direita: d\nflipper da esquerda a\n')
 
