@@ -20,3 +20,18 @@
 	li a0 100
 	beq a2 a0 FlipperDireito	# criar Label que usa isto no arquivo main
 .end_macro
+
+.macro escreverRankings()
+	li a7 1024
+	la a0 rankings
+	li a1 0
+	ecall
+
+	li a7 64
+	la a1 rankAppend
+	li a2 10
+	ecall
+
+	li a7 57
+	ecall
+.end_macro
