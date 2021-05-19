@@ -98,7 +98,7 @@ flw ft0, 12(sp)
 flw ft1, 16(sp)
 flw ft2, 20(sp)
 addi sp, sp,100
-println()
+
 .end_macro
 
 .macro printStringln(%string)
@@ -248,10 +248,8 @@ for1:
 	colidir:
 	fmv.s fs0, %velocidadeY #vx = ft0	vy = ft1
 	fmv.s fs1, %velocidadeX
-	printStringln(previousvelocity)
-	printFloatln(fs0)
-	printFloatln(fs1)
 	
+		
 	#printStringln(colidimo)
 	acharSenCos(s3, s4, s0,  s1)
 	fmv.s fs3, fa0
@@ -279,7 +277,7 @@ for1:
 	fmv.s  fa1 fs1	#vx = fa1
 	li a0, 1
 	mv a1, s11
-	printint(s11)
+	#printint(s11)
 	#printFloatln(%velocidadeX)
 	#li a7, 10
 	#ecall

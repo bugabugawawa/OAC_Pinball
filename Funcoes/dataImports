@@ -56,6 +56,7 @@
 #----------------------------------------------
 .include  "../Funcoes/userinterface"
 .include  "../Funcoes/gameplay"
+.include  "../Funcoes/RWfiles.asm"
 .include "./backend"
 .include "./userInterface"
 .include "./Fisica/SuperFuncao.asm"

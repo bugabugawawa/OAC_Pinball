@@ -9,7 +9,7 @@
 	addi sp sp -100
 	sw s0 4(sp)
 	sw s1 8(sp)
-	printint(s0)
+	
 	
 	
 	li tp 0
@@ -31,7 +31,7 @@
 	lw s0 4(sp)
 	lw s1 8(sp)
 	addi sp sp 100
-	printint(s0)
+	
 	
 	################################################################################################
 	# Scotton colocar sua lógica aqui
@@ -48,7 +48,7 @@
 	addi tp tp -1
 	
 	
-	printint(s0)
+	#printint(s0)
 	
 	loop1:
 	li s0 %YIM
@@ -67,8 +67,7 @@
 	lw s0 4(sp)
 	lw s1 8(sp)
 	addi sp sp 100
-	println()
-	printint(s0)
+	
 	
 .end_macro
 

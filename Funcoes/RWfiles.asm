@@ -19,6 +19,9 @@
     	la a0  API
     	li a1 1
     	ecall
+    	
+	li a7 57
+	ecall
 	
 	li a0 97
 	beq a2 a0 FlipperEsquerdoS	# criar Label que usa isto no arquivo main

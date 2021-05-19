@@ -77,7 +77,7 @@ fmv.s fs1, %vxbola
 fmul.s fs7 fs0 fs0
 fmul.s fs8 fs1 fs1
 fadd.s fs7 fs7 fs8
-printFloatln(fs7)
+#printFloatln(fs7)
 faddi(ft0, 0)
 fsub.s fs11, ft0, fs11
 rotacaoXVetor(fs0, fs1, fs10,  fs11)
@@ -89,7 +89,7 @@ rotacaoXVetor(fs0, fs1, fs10,  fs11)
 fmul.s fs7 fs0 fs0
 fmul.s fs8 fs1 fs1
 fadd.s fs7 fs7 fs8
-printFloatln(fs7)
+#printFloatln(fs7)
 
 
 
