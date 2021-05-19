@@ -115,6 +115,8 @@ Fim:
 	
 	
 	depoisAPI:
+	li t0 0
+	sb t0 buf t1
 	#player 1
 	getInputFlipper()
 	j depoisdoflipper
