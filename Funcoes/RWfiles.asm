@@ -15,6 +15,11 @@
 	la t0 buf
 	lb a2 0(t0)
 	
+	li a7 1024
+    	la a0  API
+    	li a1 1
+    	ecall
+	
 	li a0 97
 	beq a2 a0 FlipperEsquerdoS	# criar Label que usa isto no arquivo main
 	li a0 100

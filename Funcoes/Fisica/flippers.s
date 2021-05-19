@@ -65,7 +65,7 @@ ble s0 t0 bateumano
 
 j fimnaocolidiu
 bateumano:
-	printStringln(fliperamos)
+	#printStringln(fliperamos)
 	
 	
 	
@@ -74,11 +74,11 @@ bateumano:
 	fmul.s ft11 fs11 fs11 #ft11 = cos^2
 	fmul.s ft10 fs10 fs10 #ft10 = sen^2
 	fdiv.s ft11 ft11 ft10   #ft11 = (cos^2)/sen^2
-	printFloatln(ft11)
+	#printFloatln(ft11)
 	fadd.s ft11 fs4 ft11  #ft11 = 1+ (cos^2)/sen^2
-	printFloatln(ft11)
+	#printFloatln(ft11)
 	fsqrt.s ft11 ft11 #magia negra so aceita pai 
-	printFloatln(ft11)
+	#printFloatln(ft11)
 	fdiv.s fs1 fs3 ft11 # vx = forca/essa raiz ai . Explicacao: magia negra so aceita pai
 	fdiv.s ft0 fs11 fs10 #cos/sen
 	faddi(fs5 -1)
@@ -88,8 +88,8 @@ bateumano:
 	
 	corrigey( s10 fs0)
 	
-	printFloatln(fs0)
-	printFloatln(fs1)
+	#printFloatln(fs0)
+	#printFloatln(fs1)
 	
 	fmv.s fa0 fs0
 	fmv.s fa1 fs1
