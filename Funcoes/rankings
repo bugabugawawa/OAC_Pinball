@@ -1,4 +1,4 @@
-.macro 
+.macro appendRankings()
 	li a7 1024
 	la a0 rankings
 	li a1 9

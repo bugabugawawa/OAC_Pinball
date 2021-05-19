@@ -31,16 +31,3 @@
 	bnez t5 loop1
 	lw a1 -4(sp)
 .end_macro
-
-.macro escolheFlipper( %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
-# a = 97
-# escolhe input
-mv t1 t1 #t1 = input
-li t0 97
-beq t0 97 flipperBaixoEsq
-li t0 
-
-
-
-
-.end_macro
