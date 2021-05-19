@@ -16,9 +16,9 @@
 	lb a2 0(t0)
 	
 	li a0 97
-	beq a2 a0 FlipperEsquerdo	# criar Label que usa isto no arquivo main
+	beq a2 a0 FlipperEsquerdoS	# criar Label que usa isto no arquivo main
 	li a0 100
-	beq a2 a0 FlipperDireito	# criar Label que usa isto no arquivo main
+	beq a2 a0 FlipperDireitoS	# criar Label que usa isto no arquivo main
 .end_macro
 
 .macro escreverRankings()
