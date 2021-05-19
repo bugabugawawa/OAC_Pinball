@@ -2,26 +2,45 @@
 # só coloca o 1o frame do flipper ex: FDI1
 # ATENCAO TEM NECESSARIAMENTE QUE ESTAR EM ORDEM NO ARQUIVO DE IMPORT
 # me chama na hora se tiver duvidas
-.macro useFlipper( %X %Y %flipper )
+.macro useFlipper( %Y1 %X1 %Y0 %X0 %flipper %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
 	li t4 0
 	li t5 3
 	loop:
-	printGif( %X %Y %flipper 3 t4 )
+	printGif( %X1 %Y1 %flipper 3 t4 )
 	printbitmapClean( %X %Y 60 72 )
 	addi t4 t4 1
 	addi t5 t5 -1
 	bnez t5 loop
 	
+	
 	################################################################################################
 	# Scotton colocar sua lógica aqui
+	flipperBate(%Y1 %X1 %Y0 %X0 %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
+	fmv.s %vybola, fa0
+	fmv.s %vxbola, fa1
+	mv %ultimoPlayer, a1
 	################################################################################################	
-	
+	sw a1 -4(sp)
 	li t5 3
 	addi t4 t4 -1
 	loop1:
-	printGif( %X %Y %flipper 3 t4 )
+	printGif( %X1 %Y1 %flipper 3 t4 )
 	printbitmapClean( %X %Y 60 72 )
 	addi t4 t4 -1
 	addi t5 t5 -1
 	bnez t5 loop1
+	lw a1 -4(sp)
+.end_macro
+
+.macro escolheFlipper( %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
+# a = 97
+# escolhe input
+mv t1 t1 #t1 = input
+li t0 97
+beq t0 97 flipperBaixoEsq
+li t0 
+
+
+
+
 .end_macro

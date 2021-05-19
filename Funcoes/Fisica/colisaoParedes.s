@@ -1,7 +1,7 @@
 .data
 .include "./colisao.s"
 .eqv cEsq 15
-.eqv cDir 283
+.eqv cDir 273
 .eqv cCima 10
 .eqv cBaixo 465
 

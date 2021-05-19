@@ -25,11 +25,14 @@ Inicio:
 	li s1 150
 	li s0 70
 	printbitmapEficiente(zero zero background )
+	
 	vamola:
 	li a0, 4
 	li a1, 3
-	li s4 0
-	li s3 0
+	li s4 70
+	li s3 70
+	alterScoreP1()
+	alterScoreP2()
 	
 	#y=275 x=100
 	li s8, 0xFF000000
@@ -90,9 +93,9 @@ Fim:
 	mv s9, a1
 	#beq s9, t0, colidiu
 	move(fs0, fs1 s0 s1)
-	gravidade(fs0, s0, 1, 20)
-	perdaEnergia(fs0, 990, 1000)
-	perdaEnergia(fs1, 990, 1000)
+	#gravidade(fs0, s0, 1, 20)
+	#perdaEnergia(fs0, 990, 1000)
+	#perdaEnergia(fs1, 990, 1000)
 	#li s11 4
 	#rem s11 s1, s11
 	#sub s11 s1 s11
