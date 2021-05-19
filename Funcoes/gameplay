@@ -15,12 +15,12 @@
 	
 	################################################################################################
 	# Scotton colocar sua lógica aqui
-	flipperBate(%Y1 %X1 %Y0 %X0 %ybola, %xbola, %vybola, %vxbola, %forca)
+	flipperBate(%Y1 %X1 %Y0 %X0 %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
 	fmv.s %vybola, fa0
 	fmv.s %vxbola, fa1
 	mv %ultimoPlayer, a1
 	################################################################################################	
-	
+	sw a1 -4(sp)
 	li t5 3
 	addi t4 t4 -1
 	loop1:
@@ -29,4 +29,18 @@
 	addi t4 t4 -1
 	addi t5 t5 -1
 	bnez t5 loop1
+	lw a1 -4(sp)
+.end_macro
+
+.macro escolheFlipper( %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
+# a = 97
+# escolhe input
+mv t1 t1 #t1 = input
+li t0 97
+beq t0 97 flipperBaixoEsq
+li t0 
+
+
+
+
 .end_macro

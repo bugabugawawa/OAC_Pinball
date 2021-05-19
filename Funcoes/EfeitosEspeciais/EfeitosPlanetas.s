@@ -60,11 +60,38 @@ j efeitos
 efeitos:
 li t1 0
 li t2 4
-#li t3 8
-beq t0 t1 aumentarscore
+li t3 8
+beq t0 t3 aumentarscore
 beq t0 t2 aumentarvelocidade
-#beq t0 t3 
+beq t0 t0 diminuirscore
 j fim
+diminuirscore:
+li t5 1
+beq %ultimoplayer t5 player1scorediminuir
+li t5 2
+beq %ultimoplayer  t5 player2scorediminuir
+j fim
+player1scorediminuir:
+addi s4 s4 -50
+ble zero s4 player1dcontinua
+li s4 0
+player1dcontinua:
+printbitmapEficiente( zero zero background)
+alterScoreP2()
+j fim
+
+
+player2scorediminuir:
+addi s3 s3 -50
+ble zero s3 player2dcontinua
+li s3 0
+player2dcontinua:
+printbitmapEficiente( zero zero background)
+alterScoreP1()
+j fim
+
+
+
 aumentarscore:
 li t5 1
 beq %ultimoplayer t5 player1score
@@ -76,15 +103,11 @@ addi s4 s4 50
 printbitmapEficiente( zero zero background)
 alterScoreP2()
 
-
-	
 j fim
 player2score:
 addi s3 s3 50
 printbitmapEficiente( zero zero background)
 alterScoreP1()
-
-
 j fim
 
 aumentarvelocidade:
