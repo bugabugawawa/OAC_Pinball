@@ -2,16 +2,36 @@
 # só coloca o 1o frame do flipper ex: FDI1
 # ATENCAO TEM NECESSARIAMENTE QUE ESTAR EM ORDEM NO ARQUIVO DE IMPORT
 # me chama na hora se tiver duvidas
-.macro useFlipper( %Y1 %X1 %Y0 %X0 %flipper %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
-	li t4 0
-	li t5 3
-	loop:
-	printGif( %X1 %Y1 %flipper 3 t4 )
-	printbitmapClean( %X %Y 60 72 )
-	addi t4 t4 1
-	addi t5 t5 -1
-	bnez t5 loop
+
+.macro useFlipper( %Y1 %X1 %Y0 %X0 %flipper %ybola, %xbola, %vybola, %vxbola, %forca, %ultimoPlayer ,%XIM, %YIM)
+	#printStringln(diagonamos)
+	#------------------------------------
+	addi sp sp -100
+	sw s0 4(sp)
+	sw s1 8(sp)
+	printint(s0)
 	
+	
+	li tp 0
+	li t4 0
+	li gp 3
+	loop:
+	li s0 %YIM
+	li s1 %XIM
+	printGif( s1 s0 %flipper 3 tp)
+	li s0 %YIM
+	li s1 %XIM
+	printbitmapClean(  s1 s0  60 72 )
+	
+	addi tp tp 1
+	addi gp gp -1
+	bnez gp loop
+	
+	
+	lw s0 4(sp)
+	lw s1 8(sp)
+	addi sp sp 100
+	printint(s0)
 	
 	################################################################################################
 	# Scotton colocar sua lógica aqui
@@ -20,16 +40,36 @@
 	fmv.s %vxbola, fa1
 	mv %ultimoPlayer, a1
 	################################################################################################	
-	sw a1 -4(sp)
-	li t5 3
-	addi t4 t4 -1
+	addi sp sp -100
+	sw a1 12(sp)
+	sw s0 4(sp)
+	sw s1 8(sp)
+	li gp 3
+	addi tp tp -1
+	
+	
+	printint(s0)
+	
 	loop1:
-	printGif( %X1 %Y1 %flipper 3 t4 )
-	printbitmapClean( %X %Y 60 72 )
-	addi t4 t4 -1
-	addi t5 t5 -1
-	bnez t5 loop1
-	lw a1 -4(sp)
+	li s0 %YIM
+	li s1 %XIM
+	printGif( s1 s0 %flipper 3 tp)
+	li s0 %YIM
+	li s1 %XIM
+	printbitmapClean(  s1 s0  60 72 )
+	
+	
+	addi tp tp -1
+	addi gp gp -1
+	bnez gp loop1
+	
+	lw a1 12(sp)
+	lw s0 4(sp)
+	lw s1 8(sp)
+	addi sp sp 100
+	println()
+	printint(s0)
+	
 .end_macro
 
 .macro escolheFlipper( %ybola, %xbola, %vybola, %vxbola, %forca %ultimoPlayer)
@@ -37,7 +77,9 @@
 # escolhe input
 mv t1 t1 #t1 = input
 li t0 97
-beq t0 97 flipperBaixoEsq
+beq t1 t0 flipperBaixoEsq
+li t0 115 
+beq t1 t0 flipperBaixoDir
 li t0 
 
 
